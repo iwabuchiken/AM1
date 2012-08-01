@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".RegisterActvityActv"></activity>
         <activity android:name=".RegisterGroupActv"></activity>
+        <activity android:name=".RegisterGenreActv"></activity>
     </application>
 
 </manifest>

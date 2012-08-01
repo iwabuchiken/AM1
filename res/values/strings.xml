@@ -36,6 +36,8 @@
 	<!-- actv_register_group.xml -->
 		<string name="actv_register_group_tv_title">登録：グループ</string>
 		
-	
-	
+	<!-- actv_register_genre.xml -->
+		<string name="actv_register_genre_tv_title">登録：ジャンル</string>
+		
+		
 </resources>

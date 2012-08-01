@@ -46,18 +46,20 @@ public final class R {
         public static final int actv_register_group_tv_group=0x7f08000b;
         public static final int actv_register_group_tv_name=0x7f080009;
         public static final int actv_register_group_tv_title=0x7f080008;
+        public static final int dlg_register_bt_cancel=0x7f080011;
         public static final int dlg_register_lv=0x7f080010;
-        public static final int main_bt_pause=0x7f080013;
-        public static final int main_bt_start=0x7f080012;
-        public static final int main_bt_stop=0x7f080014;
-        public static final int main_opt_menu_register=0x7f080015;
-        public static final int main_tv_title=0x7f080011;
+        public static final int main_bt_pause=0x7f080014;
+        public static final int main_bt_start=0x7f080013;
+        public static final int main_bt_stop=0x7f080015;
+        public static final int main_opt_menu_register=0x7f080016;
+        public static final int main_tv_title=0x7f080012;
     }
     public static final class layout {
         public static final int actv_register_activity=0x7f030000;
-        public static final int actv_register_group=0x7f030001;
-        public static final int dlg_register=0x7f030002;
-        public static final int main=0x7f030003;
+        public static final int actv_register_genre=0x7f030001;
+        public static final int actv_register_group=0x7f030002;
+        public static final int dlg_register=0x7f030003;
+        public static final int main=0x7f030004;
     }
     public static final class menu {
         public static final int menu_main=0x7f070000;
@@ -68,6 +70,9 @@ public final class R {
         /**  actv_register_activity.xml 
          */
         public static final int actv_register_activity_tv_register_activity=0x7f050010;
+        /**  actv_register_genre.xml 
+         */
+        public static final int actv_register_genre_tv_title=0x7f050014;
         /**  actv_register_group.xml 
          */
         public static final int actv_register_group_tv_title=0x7f050013;

@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import am1.listeners.DialogButtonOnClickListener;
+import am1.listeners.DialogButtonOnTouchListener;
 import am1.listeners.DialogOnItemClickListener;
 import am1.main.R;
 import android.app.Activity;
@@ -80,8 +82,16 @@ public class Methods {
 		// dlg_register_patterns.xml
 		dlg_register_patterns, dlg_register_patterns_register,
 		
-		
 	}//public static enum DialogTags
+
+	public static enum DialogButtonTags {
+		// Generics
+		dlg_generic_dismiss, dlg_generic_dismiss_second_dialog,
+
+		// dlg_register.xml
+		dlg_register_bt_cancel,
+		
+	}//public static enum DialogButtonTags
 	
 	public static enum ButtonTags {
 		// main.xml
@@ -1303,7 +1313,9 @@ public class Methods {
 		 * 3. Build dialog
 		 * 
 		 * 4. Set to list view
-		 * 5. Set listener
+		 * 5. Set listener => List view
+		 * 
+		 * 5-2. Button "Cancel"
 		 * 
 		 * 6. Show dialog
 			----------------------------*/
@@ -1344,6 +1356,16 @@ public class Methods {
 		lv.setTag(Methods.DialogListTags.dlg_register_lv);
 		
 		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
+		
+		/*----------------------------
+		 * 5-2. Button "Cancel"
+			----------------------------*/
+		Button bt_cancel = (Button) dlg.findViewById(R.id.dlg_register_bt_cancel);
+		
+		bt_cancel.setTag(Methods.DialogButtonTags.dlg_generic_dismiss);
+		
+		bt_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv));
+		bt_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		
 		/*----------------------------
 		 * 6. Show dialog

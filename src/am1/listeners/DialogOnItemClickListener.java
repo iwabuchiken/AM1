@@ -57,11 +57,6 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		
 		case dlg_register_lv://----------------------------------------------------
 			
-//			// Log
-//			Log.d("DialogOnItemClickListener.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "case dlg_register_lv");
-			
 			String item = (String) parent.getItemAtPosition(position);
 			
 			if (item.equals(actv.getString(R.string.dlg_register_lv_activity))) {
@@ -79,6 +74,15 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				
 //				i.setClass(actv, RegisterActivityActv.class);
 				i.setClass(actv, RegisterGroupActv.class);
+				
+				actv.startActivity(i);
+				
+			} else if (item.equals(actv.getString(R.string.dlg_register_lv_genre))) {
+				
+				Intent i = new Intent();
+				
+//				i.setClass(actv, RegisterActivityActv.class);
+				i.setClass(actv, RegisterGenreActv.class);
 				
 				actv.startActivity(i);
 				
