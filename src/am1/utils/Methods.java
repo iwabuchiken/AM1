@@ -46,6 +46,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,6 +104,9 @@ public class Methods {
 
 		// actv_register_genre.xml
 		actv_register_genre_bt_cancel, actv_register_genre_bt_register,
+
+		// actv_register_group.xml
+		actv_register_group_bt_cancel, actv_register_group_bt_register,
 		
 	}//public static enum ButtonTags
 	
@@ -1520,5 +1524,96 @@ public class Methods {
 		}//if (res == true)
 		
 	}//public static void registerGenre(Activity actv)
+
+	
+	public static void registerGroup(Activity actv) {
+		/*----------------------------
+		 * 1. Get text
+		 * 1-2. Get spinner item
+		 * 1-3. Get genre id from genre_name
+		 * 2. Is empty?
+		 * 3. db setup
+		 * 4. Insert data
+			----------------------------*/
+		EditText et = (EditText) actv.findViewById(R.id.actv_register_group_et_name);
+		
+		String group_name = et.getText().toString();
+		
+		Spinner sp = (Spinner) actv.findViewById(R.id.actv_register_group_sp_group);
+		
+		String genre_name = (String) sp.getSelectedItem();
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "group_name: " + group_name + "/" + "genre_name: " + genre_name);
+		
+		
+		return;
+		/*----------------------------
+		 * 1-3. Get genre id from genre_name
+			----------------------------*/
+		
+		
+//		/*----------------------------
+//		 * 2. Is empty?
+//			----------------------------*/
+//		if (group_name.equals("")) {
+//			
+//			// debug
+//			Toast.makeText(actv, "ì¸óÕÇ™Ç†ÇËÇ‹ÇπÇÒ", 2000).show();
+//			
+//			return;
+//			
+//		}//if (group_name.equals(""))
+//		
+//		/*----------------------------
+//		 * 3. db setup
+//			----------------------------*/
+//		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+//		
+//		boolean res = dbu.tableExistsOrCreate(
+//												actv, 
+//												DBUtils.dbName, 
+//												DBUtils.tableName_genres, 
+//												DBUtils.cols_genres, DBUtils.types_genres);
+//		 
+//		/*----------------------------
+//		 * 4. Insert data
+//			----------------------------*/
+//		long created_at = Methods.getMillSeconds_now();
+//		long modified_at = Methods.getMillSeconds_now();
+//		
+//		Object[] values = {group_name, created_at, modified_at};
+//		
+//		res = dbu.insertData(
+//									actv, 
+//									DBUtils.dbName, 
+//									DBUtils.tableName_genres, 
+//									DBUtils.cols_genres, values);
+//		
+//		if (res == true) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Data inserted: group_name=" + group_name);
+//			
+//			// debug
+//			Toast.makeText(actv, "ÉfÅ[É^Çìoò^ÇµÇ‹ÇµÇΩÅF" + group_name, 2000).show();
+//			
+//			return;
+//			
+//		} else {//if (res == true)
+//
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Insert data: Failed");
+//			
+//			return;
+//
+//		}//if (res == true)
+	}//public static void registerGroup(Activity actv)
 
 }//public class Methods

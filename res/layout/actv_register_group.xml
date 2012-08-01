@@ -93,9 +93,13 @@
 
             <Spinner
                 android:id="@+id/actv_register_group_sp_group"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25dp" />
+                
+                android:textSize="25dp" 
+                
+                />
         </TableRow>
 
     </TableLayout>
@@ -125,7 +129,7 @@
             />
 
         <Button
-            android:id="@+id/actv_register_group_bt_pause"
+            android:id="@+id/actv_register_group_bt_cancel"
             
             style="@style/actv_register_activity_bt_pause"
             
@@ -136,7 +140,7 @@
             />
 
         <Button
-            android:id="@+id/actv_register_group_bt_stop"
+            android:id="@+id/actv_register_group_bt_clear"
             
             style="@style/actv_register_activity_bt_stop"
             

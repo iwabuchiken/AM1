@@ -47,7 +47,7 @@ public class DBUtils extends SQLiteOpenHelper{
 	SQLiteDatabase db = null;
 	
 	 // DB name
-	final static String dbName = "CM.db";
+	public final static String dbName = "CM.db";
 	
 	/*----------------------------
 	 * 2. Table names, folder names
@@ -73,7 +73,7 @@ public class DBUtils extends SQLiteOpenHelper{
 	/*----------------------------
 	 * 4. Columns, types
 		----------------------------*/
-	// Main table
+	// 
 	public static final String[] cols_genres = {
 		"name", "created_at", "modified_at"
 	};
@@ -82,6 +82,13 @@ public class DBUtils extends SQLiteOpenHelper{
 		"TEXT", "INTEGER", "INTEGER"
 	};
 	
+	public static final String[] cols_groups = {
+		"name", "genre_id", "created_at", "modified_at"
+	};
+	
+	public static final String[] types_groups = {
+		"TEXT", "INTEGER", "INTEGER", "INTEGER"
+	};
 	
 	/*****************************************************************
 	 * Constructor

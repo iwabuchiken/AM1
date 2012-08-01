@@ -45,9 +45,9 @@ public final class R {
         public static final int actv_register_genre_et_name=0x7f08000a;
         public static final int actv_register_genre_tv_name=0x7f080009;
         public static final int actv_register_genre_tv_title=0x7f080008;
-        public static final int actv_register_group_bt_pause=0x7f080014;
+        public static final int actv_register_group_bt_cancel=0x7f080014;
+        public static final int actv_register_group_bt_clear=0x7f080015;
         public static final int actv_register_group_bt_register=0x7f080013;
-        public static final int actv_register_group_bt_stop=0x7f080015;
         public static final int actv_register_group_et_name=0x7f080010;
         public static final int actv_register_group_sp_group=0x7f080012;
         public static final int actv_register_group_tv_group=0x7f080011;

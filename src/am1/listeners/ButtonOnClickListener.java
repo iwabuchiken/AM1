@@ -66,6 +66,7 @@ public class ButtonOnClickListener implements OnClickListener {
 		//
 		switch (tag_name) {
 		case actv_register_genre_bt_cancel://--------------------------------------------
+		case actv_register_group_bt_cancel:
 			
 			actv.finish();
 			
@@ -76,6 +77,12 @@ public class ButtonOnClickListener implements OnClickListener {
 			Methods.registerGenre(actv);
 			
 			break;// case actv_register_genre_bt_register
+			
+		case actv_register_group_bt_register://--------------------------------------------
+			
+			Methods.registerGroup(actv);
+			
+			break;// case actv_register_group_bt_register
 		}//switch (tag_name)
 		
 	}//public void onClick(View v)
