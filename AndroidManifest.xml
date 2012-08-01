@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActvityActv"></activity>
+        <activity android:name=".RegisterGroupActv"></activity>
     </application>
 
 </manifest>

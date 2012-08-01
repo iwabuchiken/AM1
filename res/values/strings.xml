@@ -25,6 +25,7 @@
 	<!-- dlg_register.xml -->
 		<string name="dlg_register_lv_activity">活動</string>
 		<string name="dlg_register_lv_group">グループ</string>
+		<string name="dlg_register_lv_genre">ジャンル</string>
 		
 	
 	<!-- actv_register_activity.xml -->
@@ -32,5 +33,9 @@
 		<string name="actv_register_activity_tv_name">名前</string>
 		<string name="actv_register_activity_tv_group">グループ</string>
 		
+	<!-- actv_register_group.xml -->
+		<string name="actv_register_group_tv_title">登録：グループ</string>
 		
+	
+	
 </resources>

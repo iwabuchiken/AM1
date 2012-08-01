@@ -1311,6 +1311,7 @@ public class Methods {
 		
 		itemList.add(actv.getString(R.string.dlg_register_lv_activity));
 		itemList.add(actv.getString(R.string.dlg_register_lv_group));
+		itemList.add(actv.getString(R.string.dlg_register_lv_genre));
 		
 		ArrayAdapter<String> adp = new ArrayAdapter<String>(
 				actv,

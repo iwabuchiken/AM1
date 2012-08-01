@@ -75,7 +75,12 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				
 			} else if (item.equals(actv.getString(R.string.dlg_register_lv_group))) {
 				
+				Intent i = new Intent();
 				
+//				i.setClass(actv, RegisterActivityActv.class);
+				i.setClass(actv, RegisterGroupActv.class);
+				
+				actv.startActivity(i);
 				
 			}//if (item.equals(actv.getString(R.string.ac)))
 			
