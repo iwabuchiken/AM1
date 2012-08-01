@@ -5,8 +5,77 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:id="@+id/main_tv_title"
+        
+        style="@style/layout_wh_mw"
+        
+        android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+        
+        android:gravity="center"
+        
+        android:text="@string/main_tv_title" 
+        android:textSize="25dp"
+        />
+
+    <ListView
+        android:id="@android:id/list"
+        
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        
+        android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+        
+        />
+
+    <LinearLayout
+        
+        style="@style/layout_wh_ww"
+        
+        android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+        
+        android:layout_gravity="center"
+        
+        >
+
+        <Button
+            android:id="@+id/main_bt_start"
+            
+            style="@style/main_bt_start"
+            
+            android:text="@string/main_bt_start" 
+            android:textColor="@color/blue1"
+            
+            />
+
+        <Button
+            android:id="@+id/main_bt_pause"
+            
+            style="@style/main_bt_pause"
+            
+            android:text="@string/main_bt_pause" 
+            android:textColor="@color/black"
+            
+            />
+
+        <Button
+            android:id="@+id/main_bt_stop"
+            
+            style="@style/main_bt_stop"
+            
+            android:text="@string/main_bt_stop" 
+            android:textColor="@color/black"
+            
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

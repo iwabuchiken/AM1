@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, AM1Activity!</string>
+    <string name="hello">Hello World, CompositionManagerActivity!</string>
     <string name="app_name">AM1</string>
 
+    <!-- menu_main.xml -->
+	    <string name="main_opt_menu_register">登録</string>
+	    
+    <!-- Generic items -->
+	    <string name="generic_bt_ok">OK</string>
+	    <string name="generic_bt_cancel">キャンセル</string>
+	    <string name="generic_tv_confirm">確認</string>
+	    <string name="generic_tv_menu">メニュー</string>
+	    <string name="generic_tv_register">登録</string>
+    
+    
+    <!-- main.xml -->
+	    <string name="main_tv_title">活動</string>
+	    <string name="main_bt_start">開始</string>
+	    <string name="main_bt_pause">中断</string>
+	    <string name="main_bt_stop">終了</string>
+	
+	<!-- dlg_register.xml -->
+		<string name="dlg_register_lv_activity">活動</string>
+		<string name="dlg_register_lv_group">グループ</string>
+	
 </resources>

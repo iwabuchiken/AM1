@@ -1,9 +1,5 @@
 package am1.utils;
 
-import gt2.listeners.DialogButtonOnClickListener;
-import gt2.listeners.DialogButtonOnTouchListener;
-
-import gt2.main.R;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -319,150 +315,150 @@ public class Methods {
 		return tableList;
 	}//public static List<String> getTableList()
 
-	public static Dialog dlg_template_okCancel(Activity actv, int layoutId, int titleStringId,
-									int okButtonId, int cancelButtonId, DialogTags okTag, DialogTags cancelTag) {
-		/*----------------------------
-		 * Steps
-		 * 1. Set up
-		 * 2. Add listeners => OnTouch
-		 * 3. Add listeners => OnClick
-			----------------------------*/
-		
-		// 
-		Dialog dlg = new Dialog(actv);
-		
-		//
-		dlg.setContentView(layoutId);
-		
-		// Title
-		dlg.setTitle(titleStringId);
-		
-		/*----------------------------
-		 * 2. Add listeners => OnTouch
-			----------------------------*/
-		//
-		Button btn_ok = (Button) dlg.findViewById(okButtonId);
-		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
-		
-		//
-		btn_ok.setTag(okTag);
-		btn_cancel.setTag(cancelTag);
-		
-		//
-		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
-		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
-		
-		/*----------------------------
-		 * 3. Add listeners => OnClick
-			----------------------------*/
-		//
-		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
-		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
-		
-		//
-//		dlg.show();
-		
-		return dlg;
-		
-	}//public static Dialog dlg_template_okCancel()
+//	public static Dialog dlg_template_okCancel(Activity actv, int layoutId, int titleStringId,
+//									int okButtonId, int cancelButtonId, DialogTags okTag, DialogTags cancelTag) {
+//		/*----------------------------
+//		 * Steps
+//		 * 1. Set up
+//		 * 2. Add listeners => OnTouch
+//		 * 3. Add listeners => OnClick
+//			----------------------------*/
+//		
+//		// 
+//		Dialog dlg = new Dialog(actv);
+//		
+//		//
+//		dlg.setContentView(layoutId);
+//		
+//		// Title
+//		dlg.setTitle(titleStringId);
+//		
+//		/*----------------------------
+//		 * 2. Add listeners => OnTouch
+//			----------------------------*/
+//		//
+//		Button btn_ok = (Button) dlg.findViewById(okButtonId);
+//		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
+//		
+//		//
+//		btn_ok.setTag(okTag);
+//		btn_cancel.setTag(cancelTag);
+//		
+//		//
+//		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+//		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+//		
+//		/*----------------------------
+//		 * 3. Add listeners => OnClick
+//			----------------------------*/
+//		//
+//		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+//		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+//		
+//		//
+////		dlg.show();
+//		
+//		return dlg;
+//		
+//	}//public static Dialog dlg_template_okCancel()
 
-	public static Dialog dlg_template_okCancel_2_dialogues(
-											Activity actv, int layoutId, int titleStringId,
-											int okButtonId, int cancelButtonId, 
-											DialogTags okTag, DialogTags cancelTag,
-											Dialog dlg1) {
-		/*----------------------------
-		* Steps
-		* 1. Set up
-		* 2. Add listeners => OnTouch
-		* 3. Add listeners => OnClick
-		----------------------------*/
-		
-		// 
-		Dialog dlg2 = new Dialog(actv);
-		
-		//
-		dlg2.setContentView(layoutId);
-		
-		// Title
-		dlg2.setTitle(titleStringId);
-		
-		/*----------------------------
-		* 2. Add listeners => OnTouch
-		----------------------------*/
-		//
-		Button btn_ok = (Button) dlg2.findViewById(okButtonId);
-		Button btn_cancel = (Button) dlg2.findViewById(cancelButtonId);
-		
-		//
-		btn_ok.setTag(okTag);
-		btn_cancel.setTag(cancelTag);
-		
-		//
-		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
-		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
-		
-		/*----------------------------
-		* 3. Add listeners => OnClick
-		----------------------------*/
-		//
-		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2));
-		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2));
-		
-		//
-		//dlg.show();
-		
-		return dlg2;
-		
-	}//public static Dialog dlg_template_okCancel_2_dialogues()
+//	public static Dialog dlg_template_okCancel_2_dialogues(
+//											Activity actv, int layoutId, int titleStringId,
+//											int okButtonId, int cancelButtonId, 
+//											DialogTags okTag, DialogTags cancelTag,
+//											Dialog dlg1) {
+//		/*----------------------------
+//		* Steps
+//		* 1. Set up
+//		* 2. Add listeners => OnTouch
+//		* 3. Add listeners => OnClick
+//		----------------------------*/
+//		
+//		// 
+//		Dialog dlg2 = new Dialog(actv);
+//		
+//		//
+//		dlg2.setContentView(layoutId);
+//		
+//		// Title
+//		dlg2.setTitle(titleStringId);
+//		
+//		/*----------------------------
+//		* 2. Add listeners => OnTouch
+//		----------------------------*/
+//		//
+//		Button btn_ok = (Button) dlg2.findViewById(okButtonId);
+//		Button btn_cancel = (Button) dlg2.findViewById(cancelButtonId);
+//		
+//		//
+//		btn_ok.setTag(okTag);
+//		btn_cancel.setTag(cancelTag);
+//		
+//		//
+//		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+//		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+//		
+//		/*----------------------------
+//		* 3. Add listeners => OnClick
+//		----------------------------*/
+//		//
+//		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2));
+//		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2));
+//		
+//		//
+//		//dlg.show();
+//		
+//		return dlg2;
+//		
+//	}//public static Dialog dlg_template_okCancel_2_dialogues()
 
-	public static Dialog dlg_template_cancel(
-										// Activity, layout
-										Activity actv, int layoutId,
-										// Title
-										int titleStringId,
-										// Cancel button, DialogTags => Cancel
-										int cancelButtonId, DialogTags cancelTag) {
-		/*----------------------------
-		* Steps
-		* 1. Set up
-		* 2. Add listeners => OnTouch
-		* 3. Add listeners => OnClick
-		----------------------------*/
-		
-		// 
-		Dialog dlg = new Dialog(actv);
-		
-		//
-		dlg.setContentView(layoutId);
-		
-		// Title
-		dlg.setTitle(titleStringId);
-		
-		/*----------------------------
-		* 2. Add listeners => OnTouch
-		----------------------------*/
-		//
-		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
-		
-		//
-		btn_cancel.setTag(cancelTag);
-		
-		//
-		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
-		
-		/*----------------------------
-		* 3. Add listeners => OnClick
-		----------------------------*/
-		//
-		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
-		
-		//
-		//dlg.show();
-		
-		return dlg;
-		
-	}//public static Dialog dlg_template_okCancel()
+//	public static Dialog dlg_template_cancel(
+//										// Activity, layout
+//										Activity actv, int layoutId,
+//										// Title
+//										int titleStringId,
+//										// Cancel button, DialogTags => Cancel
+//										int cancelButtonId, DialogTags cancelTag) {
+//		/*----------------------------
+//		* Steps
+//		* 1. Set up
+//		* 2. Add listeners => OnTouch
+//		* 3. Add listeners => OnClick
+//		----------------------------*/
+//		
+//		// 
+//		Dialog dlg = new Dialog(actv);
+//		
+//		//
+//		dlg.setContentView(layoutId);
+//		
+//		// Title
+//		dlg.setTitle(titleStringId);
+//		
+//		/*----------------------------
+//		* 2. Add listeners => OnTouch
+//		----------------------------*/
+//		//
+//		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
+//		
+//		//
+//		btn_cancel.setTag(cancelTag);
+//		
+//		//
+//		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+//		
+//		/*----------------------------
+//		* 3. Add listeners => OnClick
+//		----------------------------*/
+//		//
+//		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+//		
+//		//
+//		//dlg.show();
+//		
+//		return dlg;
+//		
+//	}//public static Dialog dlg_template_okCancel()
 
 	/****************************************
 
