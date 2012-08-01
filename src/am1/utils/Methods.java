@@ -100,6 +100,9 @@ public class Methods {
 		// internet_actv.xml
 		internet_actv, internet_actv_bt_post, internet_actv_bt_post_json,
 		internet_actv_bt_post_json_async,
+
+		// actv_register_genre.xml
+		actv_register_genre_bt_cancel,
 		
 	}//public static enum ButtonTags
 	

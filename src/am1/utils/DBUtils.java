@@ -73,20 +73,11 @@ public class DBUtils extends SQLiteOpenHelper{
 		----------------------------*/
 	// Main table
 	public static final String[] cols_main_table = {
-		"file_name", "file_path", 
-		"duration", 
-		"date_added", "date_modified",
-		"file_info", "memos",
-		"located_at"
+		"name", "created_at", "modified_at"
 	};
 	
 	public static final String[] types_main_table = {
-		"TEXT", "TEXT", 
-//		"TEXT UNIQUE", "TEXT",
-		"INTEGER", 
-		"INTEGER", "INTEGER",
-		"TEXT", "TEXT",
-		"TEXT"
+		"TEXT", "INTEGER", "INTEGER"
 	};
 	
 	

@@ -1,11 +1,16 @@
 package am1.main;
 
+import am1.listeners.ButtonOnClickListener;
+import am1.listeners.ButtonOnTouchListener;
 import am1.utils.Methods;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class RegisterGenreActv extends Activity {
 
@@ -26,7 +31,37 @@ public class RegisterGenreActv extends Activity {
 		
 		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
 
+		initial_setup();
+		
 	}//public void onCreate(Bundle savedInstanceState)
+
+	private void initial_setup() {
+		/*----------------------------
+		 * 1. Set listener
+			----------------------------*/
+		set_listeners();
+		
+		
+	}//private void initial_setup()
+
+	private void set_listeners() {
+		/*----------------------------
+		 * 1. Cancel
+			----------------------------*/
+		Button bt_cancel = (Button) findViewById(R.id.actv_register_genre_bt_cancel);
+		
+		bt_cancel.setTag(Methods.ButtonTags.actv_register_genre_bt_cancel);
+		
+		bt_cancel.setOnTouchListener(new ButtonOnTouchListener(this));
+		bt_cancel.setOnClickListener(new ButtonOnClickListener(this));
+
+		// Log
+		Log.d("RegisterGenreActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Listeners => Set");
+		
+		
+	}//private void set_listeners()
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

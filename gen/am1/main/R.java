@@ -26,8 +26,9 @@ public final class R {
         public static final int yello=0x7f040009;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int main_opt_menu_register=0x7f020001;
+        public static final int am1_project_icon_50x50=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int main_opt_menu_register=0x7f020002;
     }
     public static final class id {
         public static final int actv_register_activity_bt_pause=0x7f080006;
@@ -38,21 +39,27 @@ public final class R {
         public static final int actv_register_activity_tv_group=0x7f080003;
         public static final int actv_register_activity_tv_name=0x7f080001;
         public static final int actv_register_activity_tv_title=0x7f080000;
-        public static final int actv_register_group_bt_pause=0x7f08000e;
-        public static final int actv_register_group_bt_register=0x7f08000d;
-        public static final int actv_register_group_bt_stop=0x7f08000f;
-        public static final int actv_register_group_et_name=0x7f08000a;
-        public static final int actv_register_group_sp_group=0x7f08000c;
-        public static final int actv_register_group_tv_group=0x7f08000b;
-        public static final int actv_register_group_tv_name=0x7f080009;
-        public static final int actv_register_group_tv_title=0x7f080008;
-        public static final int dlg_register_bt_cancel=0x7f080011;
-        public static final int dlg_register_lv=0x7f080010;
-        public static final int main_bt_pause=0x7f080014;
-        public static final int main_bt_start=0x7f080013;
-        public static final int main_bt_stop=0x7f080015;
-        public static final int main_opt_menu_register=0x7f080016;
-        public static final int main_tv_title=0x7f080012;
+        public static final int actv_register_genre_bt_cancel=0x7f08000c;
+        public static final int actv_register_genre_bt_clear=0x7f08000d;
+        public static final int actv_register_genre_bt_register=0x7f08000b;
+        public static final int actv_register_genre_et_name=0x7f08000a;
+        public static final int actv_register_genre_tv_name=0x7f080009;
+        public static final int actv_register_genre_tv_title=0x7f080008;
+        public static final int actv_register_group_bt_pause=0x7f080014;
+        public static final int actv_register_group_bt_register=0x7f080013;
+        public static final int actv_register_group_bt_stop=0x7f080015;
+        public static final int actv_register_group_et_name=0x7f080010;
+        public static final int actv_register_group_sp_group=0x7f080012;
+        public static final int actv_register_group_tv_group=0x7f080011;
+        public static final int actv_register_group_tv_name=0x7f08000f;
+        public static final int actv_register_group_tv_title=0x7f08000e;
+        public static final int dlg_register_bt_cancel=0x7f080017;
+        public static final int dlg_register_lv=0x7f080016;
+        public static final int main_bt_pause=0x7f08001a;
+        public static final int main_bt_start=0x7f080019;
+        public static final int main_bt_stop=0x7f08001b;
+        public static final int main_opt_menu_register=0x7f08001c;
+        public static final int main_tv_title=0x7f080018;
     }
     public static final class layout {
         public static final int actv_register_activity=0x7f030000;

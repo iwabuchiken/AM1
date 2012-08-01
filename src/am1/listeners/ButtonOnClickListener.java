@@ -1,6 +1,7 @@
 package am1.listeners;
 import java.io.File;
 
+import am1.utils.Methods;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Vibrator;
@@ -57,16 +58,20 @@ public class ButtonOnClickListener implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-//		//
-//		Methods.ButtonTags tag_name = (Methods.ButtonTags) v.getTag();
-//
-//		vib.vibrate(Methods.vibLength_click);
+		//
+		Methods.ButtonTags tag_name = (Methods.ButtonTags) v.getTag();
+
+		vib.vibrate(Methods.vibLength_click);
 		
 		//
-//		switch (tag_name) {
-//		case main_bt_play://---------------------------------------------------------
+		switch (tag_name) {
+		case actv_register_genre_bt_cancel://--------------------------------------------
+			
+			actv.finish();
+			
+			break;
 		
-//		}//switch (tag_name)
+		}//switch (tag_name)
 		
 	}//public void onClick(View v)
 

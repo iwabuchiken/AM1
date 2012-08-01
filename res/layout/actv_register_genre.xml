@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/actv_register_group_tv_title"
+        android:id="@+id/actv_register_genre_tv_title"
         
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:gravity="center"
         
         
-        android:text="@string/actv_register_group_tv_title" 
+        android:text="@string/actv_register_genre_tv_title" 
         android:textSize="25dp"
         
         />
@@ -42,7 +42,7 @@
             >
 
             <TextView
-                android:id="@+id/actv_register_group_tv_name"
+                android:id="@+id/actv_register_genre_tv_name"
                 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 />
 
             <EditText
-                android:id="@+id/actv_register_group_et_name"
+                android:id="@+id/actv_register_genre_et_name"
                 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,46 +70,6 @@
                 
                 
                 />
-        </TableRow>
-
-        <TableRow
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            
-            android:layout_marginTop="5dp"
-			android:layout_marginBottom="5dp"
-			android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-            
-            >
-
-            <TextView
-                android:id="@+id/actv_register_group_tv_group"
-                
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-	            android:layout_marginTop="5dp"
-				android:layout_marginBottom="5dp"
-				android:layout_marginLeft="5dp"
-				android:layout_marginRight="5dp"
-                
-                android:text="@string/dlg_register_lv_genre" 
-                android:textSize="25dp"
-                
-                />
-
-            <Spinner
-                android:id="@+id/actv_register_group_sp_group"
-                
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                
-                android:textSize="25dp"
-                
-                />
-
         </TableRow>
 
     </TableLayout>
@@ -128,7 +88,7 @@
         >
 
         <Button
-            android:id="@+id/actv_register_group_bt_register"
+            android:id="@+id/actv_register_genre_bt_register"
             
             style="@style/actv_register_activity_bt_start"
             
@@ -139,7 +99,7 @@
             />
 
         <Button
-            android:id="@+id/actv_register_group_bt_pause"
+            android:id="@+id/actv_register_genre_bt_cancel"
             
             style="@style/actv_register_activity_bt_pause"
             
@@ -150,7 +110,7 @@
             />
 
         <Button
-            android:id="@+id/actv_register_group_bt_stop"
+            android:id="@+id/actv_register_genre_bt_clear"
             
             style="@style/actv_register_activity_bt_stop"
             
