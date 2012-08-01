@@ -13,6 +13,7 @@
 	    <string name="generic_tv_confirm">確認</string>
 	    <string name="generic_tv_menu">メニュー</string>
 	    <string name="generic_tv_register">登録</string>
+	    <string name="generic_tv_clear">クリアー</string>
     
     
     <!-- main.xml -->
@@ -24,5 +25,12 @@
 	<!-- dlg_register.xml -->
 		<string name="dlg_register_lv_activity">活動</string>
 		<string name="dlg_register_lv_group">グループ</string>
+		
 	
+	<!-- actv_register_activity.xml -->
+		<string name="actv_register_activity_tv_register_activity">活動登録</string>
+		<string name="actv_register_activity_tv_name">名前</string>
+		<string name="actv_register_activity_tv_group">グループ</string>
+		
+		
 </resources>

@@ -61,6 +61,7 @@ public class MainActv extends Activity {
 				----------------------------*/
             case R.id.main_opt_menu_register://--------------------------------
             	
+            	Methods.dlg_register(this);
             	
             	break;//case 0
             	

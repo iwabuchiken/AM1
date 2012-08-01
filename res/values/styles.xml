@@ -9,6 +9,20 @@
 	        
 	    </style>
 	    
+		<style name="layout_wh_150xw">
+	        
+	        <item name="android:layout_width">150dp</item>
+			<item name="android:layout_height">wrap_content</item>
+	        
+	    </style>
+		
+		<style name="layout_wh_100xw">
+	        
+	        <item name="android:layout_width">100dp</item>
+			<item name="android:layout_height">wrap_content</item>
+	        
+	    </style>
+		
 		<style name="layout_bt_wh_ww">
 	        
 	        <item name="android:layout_width">wrap_content</item>
@@ -69,4 +83,46 @@
 	        
 	    </style>
 		
+	<!-- actv_register_activity.xml -->
+	    <style 
+	        name="actv_register_activity_bt_start"
+	        
+	        parent="@style/layout_wh_100xw"
+	        
+	        >
+	        
+	        <item name="android:textSize">25dp</item>
+	        <item name="android:textColor">@color/black</item>
+			
+	        
+	    </style>
+	
+	    <style 
+	        name="actv_register_activity_bt_pause"
+	        
+	        parent="@style/layout_wh_100xw"
+	        
+	        >
+	        
+	        <item name="android:textSize">20dp</item>
+	        <item name="android:textColor">@color/black</item>
+			
+	        
+	    </style>
+	
+	    <style 
+	        name="actv_register_activity_bt_stop"
+	        
+	        parent="@style/layout_wh_100xw"
+	        
+	        >
+	        
+	        <item name="android:textSize">20dp</item>
+	        <item name="android:textColor">@color/black</item>
+			
+	        
+	    </style>
+	
+	    	    	
+	
 </resources>

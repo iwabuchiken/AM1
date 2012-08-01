@@ -1,8 +1,13 @@
 package am1.listeners;
 
+import am1.main.*;
+import am1.utils.Methods;
+
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -41,17 +46,44 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		 * 3. Switching
 			----------------------------*/
 		
-//		Methods.DialogOnItemClickTags tag = (Methods.DialogOnItemClickTags) parent.getTag();
+		Methods.DialogListTags tag = (Methods.DialogListTags) parent.getTag();
 //		
-//		vib.vibrate(Methods.vibLength_click);
+		vib.vibrate(Methods.vibLength_click);
 		
 		/*----------------------------
 		 * 3. Switching
 			----------------------------*/
-//		switch (tag) {
+		switch (tag) {
 		
+		case dlg_register_lv://----------------------------------------------------
 			
-//		}//switch (tag)
+//			// Log
+//			Log.d("DialogOnItemClickListener.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "case dlg_register_lv");
+			
+			String item = (String) parent.getItemAtPosition(position);
+			
+			if (item.equals(actv.getString(R.string.dlg_register_lv_activity))) {
+				
+				Intent i = new Intent();
+				
+//				i.setClass(actv, RegisterActivityActv.class);
+				i.setClass(actv, RegisterActvityActv.class);
+				
+				actv.startActivity(i);
+				
+			} else if (item.equals(actv.getString(R.string.dlg_register_lv_group))) {
+				
+				
+				
+			}//if (item.equals(actv.getString(R.string.ac)))
+			
+			
+			break;// case dlg_register_lv
+			
+		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-}
+	
+}//public class DialogOnItemClickListener implements OnItemClickListener

@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import am1.listeners.DialogOnItemClickListener;
+import am1.main.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -125,6 +127,12 @@ public class Methods {
 		dlg_register_patterns, dlg_register_patterns_gv,
 		
 	}//public static enum DialogOnItemClickListener
+	
+	public static enum DialogListTags {
+		// dlg_register.xml
+		dlg_register_lv,
+		
+	}//public static enum DialogListTags
 	
 	//
 	public static final int vibLength_click = 35;
@@ -1275,5 +1283,72 @@ public class Methods {
 		return true;
 		
 	}//public static boolean test_postDataToRemote_json_with_params(Activity actv)
+
+
+	/****************************************
+	 *
+	 * 
+	 * <Caller> 1. MainActv.onOptionsItemSelected()
+	 * 
+	 * <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 1.
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	public static void dlg_register(Activity actv) {
+		/*----------------------------
+		 * 1. Prepare data
+		 * 2. Prepare adapter
+		 * 3. Build dialog
+		 * 
+		 * 4. Set to list view
+		 * 5. Set listener
+		 * 
+		 * 6. Show dialog
+			----------------------------*/
+		List<String> itemList = new ArrayList<String>();
+		
+		itemList.add(actv.getString(R.string.dlg_register_lv_activity));
+		itemList.add(actv.getString(R.string.dlg_register_lv_group));
+		
+		ArrayAdapter<String> adp = new ArrayAdapter<String>(
+				actv,
+				android.R.layout.simple_list_item_1,
+				itemList
+				);
+		
+		/*----------------------------
+		 * 3. Build dialog
+			----------------------------*/
+		// 
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(R.layout.dlg_register);
+		
+		// Title
+		dlg.setTitle(actv.getString(R.string.generic_tv_register));
+		
+		/*----------------------------
+		 * 4. Set to list view
+			----------------------------*/
+		ListView lv = (ListView) dlg.findViewById(R.id.dlg_register_lv);
+		
+		lv.setAdapter(adp);
+		
+		/*----------------------------
+		 * 5. Set listener
+			----------------------------*/
+		lv.setTag(Methods.DialogListTags.dlg_register_lv);
+		
+		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
+		
+		/*----------------------------
+		 * 6. Show dialog
+			----------------------------*/
+		dlg.show();
+		
+	}//public static void dlg_register(Activity actv)
 
 }//public class Methods
