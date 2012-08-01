@@ -102,7 +102,7 @@ public class Methods {
 		internet_actv_bt_post_json_async,
 
 		// actv_register_genre.xml
-		actv_register_genre_bt_cancel,
+		actv_register_genre_bt_cancel, actv_register_genre_bt_register,
 		
 	}//public static enum ButtonTags
 	
@@ -290,6 +290,26 @@ public class Methods {
 		return d.getTime();
 		
 	}//private long getMillSeconds(int year, int month, int date)
+
+	/****************************************
+	 *	getMillSeconds_now()
+	 * 
+	 * <Caller> 
+	 * 1. ButtonOnClickListener # case main_bt_start
+	 * 
+	 * <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 1.
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	public static long getMillSeconds_now() {
+		
+		Calendar cal = Calendar.getInstance();
+		
+		return cal.getTime().getTime();
+		
+	}//private long getMillSeconds_now(int year, int month, int date)
 
 	public static List<String> getTableList(SQLiteDatabase wdb) {
 		//=> source: http://stackoverflow.com/questions/4681744/android-get-list-of-tables : "Just had to do the same. This seems to work:"
@@ -801,6 +821,57 @@ public class Methods {
 		
 	}//private static int insertDataIntoDB()
 
+	private static boolean insertDataIntoDB(
+			Activity actv, String tableName, String[] types, String[] values) {
+		/*----------------------------
+		* Steps
+		* 1. Set up db
+		* 2. Insert data
+		* 3. Show message
+		* 4. Close db
+		----------------------------*/
+		/*----------------------------
+		* 1. Set up db
+		----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/*----------------------------
+		* 2. Insert data
+		----------------------------*/
+		boolean result = dbu.insertData(wdb, tableName, types, values);
+		
+		/*----------------------------
+		* 3. Show message
+		----------------------------*/
+		if (result == true) {
+			
+			// debug
+			Toast.makeText(actv, "Data stored", 2000).show();
+			
+			/*----------------------------
+			* 4. Close db
+			----------------------------*/
+			wdb.close();
+			
+			return true;
+			
+		} else {//if (result == true)
+		
+			// debug
+			Toast.makeText(actv, "Store data => Failed", 200).show();
+			
+			/*----------------------------
+			* 4. Close db
+			----------------------------*/
+			wdb.close();
+			
+			return false;
+		
+		}//if (result == true)
+
+	}//private static int insertDataIntoDB()
 
 	public static void test_postDataToRemote(Activity actv) {
 		/*----------------------------
@@ -1376,5 +1447,78 @@ public class Methods {
 		dlg.show();
 		
 	}//public static void dlg_register(Activity actv)
+
+	public static void registerGenre(Activity actv) {
+		/*----------------------------
+		 * 1. Get text
+		 * 2. Is empty?
+		 * 3. db setup
+		 * 4. Insert data
+			----------------------------*/
+		EditText et = (EditText) actv.findViewById(R.id.actv_register_genre_et_name);
+		
+		String name = et.getText().toString();
+		
+		/*----------------------------
+		 * 2. Is empty?
+			----------------------------*/
+		if (name.equals("")) {
+			
+			// debug
+			Toast.makeText(actv, "ì¸óÕÇ™Ç†ÇËÇ‹ÇπÇÒ", 2000).show();
+			
+			return;
+			
+		}//if (name.equals(""))
+		
+		/*----------------------------
+		 * 3. db setup
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		boolean res = dbu.tableExistsOrCreate(
+												actv, 
+												DBUtils.dbName, 
+												DBUtils.tableName_genres, 
+												DBUtils.cols_genres, DBUtils.types_genres);
+		 
+		/*----------------------------
+		 * 4. Insert data
+			----------------------------*/
+		long created_at = Methods.getMillSeconds_now();
+		long modified_at = Methods.getMillSeconds_now();
+		
+		Object[] values = {name, created_at, modified_at};
+		
+		res = dbu.insertData(
+									actv, 
+									DBUtils.dbName, 
+									DBUtils.tableName_genres, 
+									DBUtils.cols_genres, values);
+		
+		if (res == true) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data inserted: name=" + name);
+			
+			// debug
+			Toast.makeText(actv, "ÉfÅ[É^Çìoò^ÇµÇ‹ÇµÇΩÅF" + name, 2000).show();
+			
+			return;
+			
+		} else {//if (res == true)
+
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Insert data: Failed");
+			
+			return;
+
+		}//if (res == true)
+		
+	}//public static void registerGenre(Activity actv)
 
 }//public class Methods

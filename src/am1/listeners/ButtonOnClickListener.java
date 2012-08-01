@@ -70,7 +70,12 @@ public class ButtonOnClickListener implements OnClickListener {
 			actv.finish();
 			
 			break;
-		
+
+		case actv_register_genre_bt_register://--------------------------------------------
+			
+			Methods.registerGenre(actv);
+			
+			break;// case actv_register_genre_bt_register
 		}//switch (tag_name)
 		
 	}//public void onClick(View v)

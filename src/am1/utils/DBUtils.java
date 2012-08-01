@@ -55,6 +55,8 @@ public class DBUtils extends SQLiteOpenHelper{
 	// Table names
 	public final static String mainTableName = "main_table";
 	
+	public final static String tableName_genres = "genres";
+	
 	public static String currentTableName = null;
 	
 	public static String baseDirName = "";
@@ -72,11 +74,11 @@ public class DBUtils extends SQLiteOpenHelper{
 	 * 4. Columns, types
 		----------------------------*/
 	// Main table
-	public static final String[] cols_main_table = {
+	public static final String[] cols_genres = {
 		"name", "created_at", "modified_at"
 	};
 	
-	public static final String[] types_main_table = {
+	public static final String[] types_genres = {
 		"TEXT", "INTEGER", "INTEGER"
 	};
 	
@@ -213,6 +215,59 @@ public class DBUtils extends SQLiteOpenHelper{
 		} else {//if (cursor.getCount() > 0)
 			return false;
 		}//if (cursor.getCount() > 0)
+	}//public boolean tableExists(String tableName)
+
+	public boolean tableExistsOrCreate(Activity actv, String dbName, 
+									String tableName, String[] columns, String[] types) {
+		
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		
+		// The table exists?
+		Cursor cursor = rdb.rawQuery(
+									"SELECT * FROM sqlite_master WHERE tbl_name = '" + 
+									tableName + "'", null);
+		
+//		((Activity) context).startManagingCursor(cursor);
+		actv.startManagingCursor(cursor);
+		
+		// Judge
+		if (cursor.getCount() > 0) {
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + tableName);
+			
+			
+			return true;
+			
+		} else {//if (cursor.getCount() > 0)
+			
+			rdb.close();
+			
+			SQLiteDatabase wdb = dbu.getWritableDatabase();
+			
+			boolean res = dbu.createTable(wdb, tableName, columns, types);
+			
+			if (res == true) {
+				
+				// Log
+				Log.d("DBUtils.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: " + tableName);
+				
+				
+			}//if (res == true)
+			
+			return res;
+			
+		}//if (cursor.getCount() > 0)
+		
 	}//public boolean tableExists(String tableName)
 
 	public boolean dropTable(Activity actv, SQLiteDatabase db, String tableName) {
@@ -443,6 +498,65 @@ public class DBUtils extends SQLiteOpenHelper{
 			Log.e("DBUtils.java" + "["
 			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 			+ "]", "Exception! => " + e.toString());
+			
+			return false;
+		}//try
+		
+		////debug
+		//return false;
+		
+	}//public insertData(String tableName, String[] columnNames, String[] values)
+
+	public boolean insertData(Activity actv, String dbName, 
+						String tableName, String[] columnNames, Object[] values) {
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+//			"name", "created_at", "modified_at"
+			
+			// Put values
+			val.put(columnNames[0], (String) values[0]);		// name
+			val.put(columnNames[1], (Long) values[1]);		// created_at
+			
+			val.put(columnNames[2], (Long) values[2]);		// modified_at
+			
+			// Insert data
+			wdb.insert(tableName, null, val);
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Transaction => Ends");
+			
+			wdb.close();
+			
+			return true;
+		
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Exception! => " + e.toString());
+			
+			wdb.close();
 			
 			return false;
 		}//try

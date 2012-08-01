@@ -60,6 +60,21 @@ public class RegisterGenreActv extends Activity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Listeners => Set");
 		
+		/*----------------------------
+		 * 2. Register
+			----------------------------*/
+		Button bt_register = (Button) findViewById(R.id.actv_register_genre_bt_register);
+		
+		bt_register.setTag(Methods.ButtonTags.actv_register_genre_bt_register);
+		
+		bt_register.setOnTouchListener(new ButtonOnTouchListener(this));
+		bt_register.setOnClickListener(new ButtonOnClickListener(this));
+
+		// Log
+		Log.d("RegisterGenreActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Listeners => Set");
+		
 		
 	}//private void set_listeners()
 
