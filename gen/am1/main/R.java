@@ -26,17 +26,14 @@ public final class R {
         public static final int yello=0x7f040009;
     }
     public static final class drawable {
-        public static final int gt_main_opt_menu_add_pattern_30x30=0x7f020000;
-        public static final int gt_main_opt_menu_timer_history_33x38=0x7f020001;
-        public static final int gt_project_50x50=0x7f020002;
-        public static final int gt_spinner_checked=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int spinner_check=0x7f020005;
+        public static final int ic_launcher=0x7f020000;
+        public static final int main_opt_menu_register=0x7f020001;
     }
     public static final class id {
         public static final int main_bt_pause=0x7f080002;
         public static final int main_bt_start=0x7f080001;
         public static final int main_bt_stop=0x7f080003;
+        public static final int main_opt_menu_register=0x7f080004;
         public static final int main_tv_title=0x7f080000;
     }
     public static final class layout {
