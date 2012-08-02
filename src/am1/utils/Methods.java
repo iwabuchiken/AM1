@@ -108,6 +108,10 @@ public class Methods {
 		// actv_register_group.xml
 		actv_register_group_bt_cancel, actv_register_group_bt_register,
 		
+		// actv_register_activity.xml
+		actv_register_activity_bt_cancel, actv_register_activity_bt_register,
+		
+		
 	}//public static enum ButtonTags
 	
 	public static enum ItemTags {

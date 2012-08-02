@@ -139,7 +139,7 @@
             />
 
         <Button
-            android:id="@+id/actv_register_activity_bt_pause"
+            android:id="@+id/actv_register_activity_bt_cancel"
             
             style="@style/actv_register_activity_bt_pause"
             
@@ -150,7 +150,7 @@
             />
 
         <Button
-            android:id="@+id/actv_register_activity_bt_stop"
+            android:id="@+id/actv_register_activity_bt_clear"
             
             style="@style/actv_register_activity_bt_stop"
             
