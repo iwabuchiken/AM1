@@ -83,6 +83,8 @@ public class ButtonOnClickListener implements OnClickListener {
 			Methods.registerGroup(actv);
 			
 			break;// case actv_register_group_bt_register
+			
+		
 		}//switch (tag_name)
 		
 	}//public void onClick(View v)

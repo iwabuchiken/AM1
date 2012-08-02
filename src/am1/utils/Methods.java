@@ -1480,7 +1480,8 @@ public class Methods {
 			----------------------------*/
 		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
 		
-		boolean res = dbu.tableExistsOrCreate(
+//		boolean res = dbu.tableExistsOrCreate(
+		int i_res = dbu.tableExistsOrCreate(
 												actv, 
 												DBUtils.dbName, 
 												DBUtils.tableName_genres, 
@@ -1494,7 +1495,7 @@ public class Methods {
 		
 		Object[] values = {name, created_at, modified_at};
 		
-		res = dbu.insertData(
+		boolean res = dbu.insertData(
 									actv, 
 									DBUtils.dbName, 
 									DBUtils.tableName_genres, 
@@ -1529,9 +1530,10 @@ public class Methods {
 	public static void registerGroup(Activity actv) {
 		/*----------------------------
 		 * 1. Get text
+		 * 1-1. Is empty?
 		 * 1-2. Get spinner item
-		 * 1-3. Get genre id from genre_name
-		 * 2. Is empty?
+		 * 
+		 * 2. Get genre id from genre_name
 		 * 3. db setup
 		 * 4. Insert data
 			----------------------------*/
@@ -1539,6 +1541,21 @@ public class Methods {
 		
 		String group_name = et.getText().toString();
 		
+		/*----------------------------
+		 * 1-1. Is empty?
+			----------------------------*/
+		if (group_name.equals("")) {
+			
+			// debug
+			Toast.makeText(actv, "ì¸óÕÇ™Ç†ÇËÇ‹ÇπÇÒ", 2000).show();
+			
+			return;
+			
+		}//if (group_name.equals(""))
+		
+		/*----------------------------
+		 * 1-2. Get spinner item
+			----------------------------*/
 		Spinner sp = (Spinner) actv.findViewById(R.id.actv_register_group_sp_group);
 		
 		String genre_name = (String) sp.getSelectedItem();
@@ -1548,72 +1565,157 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "group_name: " + group_name + "/" + "genre_name: " + genre_name);
 		
-		
-		return;
 		/*----------------------------
-		 * 1-3. Get genre id from genre_name
+		 * 2. Get genre id from genre_name
 			----------------------------*/
+		long genre_id = Methods.getGenreId_FromGenreName(
+										actv, 
+										DBUtils.dbName, 
+										DBUtils.tableName_genres,
+										genre_name);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "genre_id: " + genre_id);
 		
 		
-//		/*----------------------------
-//		 * 2. Is empty?
-//			----------------------------*/
-//		if (group_name.equals("")) {
-//			
-//			// debug
-//			Toast.makeText(actv, "ì¸óÕÇ™Ç†ÇËÇ‹ÇπÇÒ", 2000).show();
-//			
-//			return;
-//			
-//		}//if (group_name.equals(""))
-//		
-//		/*----------------------------
-//		 * 3. db setup
-//			----------------------------*/
-//		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
-//		
-//		boolean res = dbu.tableExistsOrCreate(
-//												actv, 
-//												DBUtils.dbName, 
-//												DBUtils.tableName_genres, 
-//												DBUtils.cols_genres, DBUtils.types_genres);
-//		 
-//		/*----------------------------
-//		 * 4. Insert data
-//			----------------------------*/
-//		long created_at = Methods.getMillSeconds_now();
-//		long modified_at = Methods.getMillSeconds_now();
-//		
-//		Object[] values = {group_name, created_at, modified_at};
-//		
-//		res = dbu.insertData(
-//									actv, 
-//									DBUtils.dbName, 
-//									DBUtils.tableName_genres, 
-//									DBUtils.cols_genres, values);
-//		
-//		if (res == true) {
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Data inserted: group_name=" + group_name);
-//			
-//			// debug
-//			Toast.makeText(actv, "ÉfÅ[É^Çìoò^ÇµÇ‹ÇµÇΩÅF" + group_name, 2000).show();
-//			
-//			return;
-//			
-//		} else {//if (res == true)
-//
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Insert data: Failed");
-//			
-//			return;
-//
-//		}//if (res == true)
+		/*----------------------------
+		 * 3. db setup
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		int i_res = dbu.tableExistsOrCreate(
+												actv, 
+												DBUtils.dbName, 
+												DBUtils.tableName_groups, 
+												DBUtils.cols_groups, DBUtils.types_groups);
+		
+		if (i_res == 1) {
+			
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Table created: " + DBUtils.tableName_groups);
+			
+			
+		} else if (i_res == 0) {//if (i_result == true)
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Table exists: " + DBUtils.tableName_groups);
+			
+		} else if (i_res == -1) {//if (i_result == true)
+
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Create table => Failed: " + DBUtils.tableName_groups);
+			
+		}//if (i_result == true)
+		
+//		return;
+
+		/*----------------------------
+		 * 4. Insert data
+			----------------------------*/
+		long created_at = Methods.getMillSeconds_now();
+		long modified_at = Methods.getMillSeconds_now();
+		
+		Object[] values = {group_name, genre_id, created_at, modified_at};
+		
+		boolean res = dbu.insertData_group(
+									actv, 
+									DBUtils.dbName, 
+									DBUtils.tableName_groups, 
+									DBUtils.cols_groups, values);
+		
+		if (res == true) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data inserted: group_name=" + group_name);
+			
+			// debug
+			Toast.makeText(actv, "ÉfÅ[É^Çìoò^ÇµÇ‹ÇµÇΩÅF" + group_name, 2000).show();
+			
+			return;
+			
+		} else {//if (res == true)
+
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Insert data => Failed: " + group_name);
+			
+			return;
+
+		}//if (res == true)
 	}//public static void registerGroup(Activity actv)
+
+	/****************************************
+	 *
+	 * 
+	 * <Caller> 1. <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 
+	 * 1.	-1		=> The genre doesn't exist in the table
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	private static long getGenreId_FromGenreName(Activity actv, String dbname,
+			String tablenameGenres, String genre_name) {
+		/*----------------------------
+		 * 1. db setup
+		 * 2. Is in the table?
+		 * 3. Genre id
+		 * 4. Close db
+		 * 
+		 * 5. Return
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/*----------------------------
+		 * 2. Is in the table?
+			----------------------------*/
+		boolean res = dbu.isInTable(
+										actv, DBUtils.dbName, 
+										DBUtils.tableName_genres, 
+										DBUtils.cols_groups[0], genre_name);
+
+		if (res == false) {
+			
+			// debug
+			Toast.makeText(actv, "Ç±ÇÃÉWÉÉÉìÉãÇÕÅAÇ‹Çæìoò^Ç≥ÇÍÇƒÇ‹ÇπÇÒ", 2000).show();
+			
+			return -1;
+			
+		}//if (res == false)
+		
+		/*----------------------------
+		 * 3. Genre id
+			----------------------------*/
+		String sql = "SELECT * FROM " + tablenameGenres + " WHERE name='" + genre_name + "'";
+		
+		Cursor c = rdb.rawQuery(sql, null);
+		
+		c.moveToFirst();
+		
+		long genre_id = c.getLong(0);
+		
+		
+		rdb.close();
+		
+		return genre_id;
+		
+		
+//		return 0;
+	}//private static long getGenreId_FromGenreName
 
 }//public class Methods

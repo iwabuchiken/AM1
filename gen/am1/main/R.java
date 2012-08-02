@@ -27,8 +27,10 @@ public final class R {
     }
     public static final class drawable {
         public static final int am1_project_icon_50x50=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int main_opt_menu_register=0x7f020002;
+        public static final int gt_spinner_checked=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int main_opt_menu_register=0x7f020003;
+        public static final int spinner_check=0x7f020004;
     }
     public static final class id {
         public static final int actv_register_activity_bt_pause=0x7f080006;
@@ -67,6 +69,8 @@ public final class R {
         public static final int actv_register_group=0x7f030002;
         public static final int dlg_register=0x7f030003;
         public static final int main=0x7f030004;
+        public static final int spinner_dropdown_row=0x7f030005;
+        public static final int spinner_row=0x7f030006;
     }
     public static final class menu {
         public static final int menu_main=0x7f070000;
@@ -109,6 +113,9 @@ public final class R {
         public static final int main_tv_title=0x7f050009;
     }
     public static final class style {
+        /**  actv_register_group.xml 
+         */
+        public static final int SpinnerCheckedIcon=0x7f06000b;
         public static final int actv_register_activity_bt_pause=0x7f060009;
         /**  actv_register_activity.xml 
          */

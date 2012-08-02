@@ -107,9 +107,12 @@ public class RegisterGroupActv extends Activity {
 			----------------------------*/
 		ArrayAdapter<String> adp = new ArrayAdapter<String>(
 							this,
-							android.R.layout.simple_list_item_1,
+//							android.R.layout.simple_list_item_1,
+							R.layout.spinner_row,
 							genre_list
 				);
+		
+		adp.setDropDownViewResource(R.layout.spinner_dropdown_row);
 		
 		/*----------------------------
 		 * 5. Set adapter to spinner

@@ -57,6 +57,8 @@ public class DBUtils extends SQLiteOpenHelper{
 	
 	public final static String tableName_genres = "genres";
 	
+	public final static String tableName_groups = "groups";
+	
 	public static String currentTableName = null;
 	
 	public static String baseDirName = "";
@@ -224,7 +226,19 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//if (cursor.getCount() > 0)
 	}//public boolean tableExists(String tableName)
 
-	public boolean tableExistsOrCreate(Activity actv, String dbName, 
+	/****************************************
+	 *
+	 * 
+	 * <Caller> 1. <Desc> 1. <Params> 1.
+	 * 
+	 * <Return>
+	 *  1. 1		=> Table created
+	 *  2. 0		=> Table exists
+	 *  3. -1		=> Exception
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	public int tableExistsOrCreate(Activity actv, String dbName, 
 									String tableName, String[] columns, String[] types) {
 		
 		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
@@ -250,7 +264,7 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ "]", "Table exists: " + tableName);
 			
 			
-			return true;
+			return 0;
 			
 		} else {//if (cursor.getCount() > 0)
 			
@@ -268,14 +282,15 @@ public class DBUtils extends SQLiteOpenHelper{
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Table created: " + tableName);
 				
+				return 1;
 				
 			}//if (res == true)
 			
-			return res;
+			return -1;
 			
 		}//if (cursor.getCount() > 0)
 		
-	}//public boolean tableExists(String tableName)
+	}//public int tableExists(String tableName)
 
 	public boolean dropTable(Activity actv, SQLiteDatabase db, String tableName) {
 		/*------------------------------
@@ -573,6 +588,65 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public insertData(String tableName, String[] columnNames, String[] values)
 
+	public boolean insertData_group(Activity actv, String dbName, 
+			String tableName, String[] columnNames, Object[] values) {
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+			//"name", "created_at", "modified_at"
+			
+			// Put values
+			val.put(columnNames[0], (String) values[0]);		// name
+			val.put(columnNames[1], (Long) values[1]);		// genre_id
+			val.put(columnNames[2], (Long) values[2]);		// created_at
+			val.put(columnNames[3], (Long) values[3]);		// modified_at
+			
+			// Insert data
+			wdb.insert(tableName, null, val);
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Transaction => Ends");
+			
+			wdb.close();
+			
+			return true;
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Exception! => " + e.toString());
+			
+			wdb.close();
+			
+			return false;
+		}//try
+		
+		////debug
+		//return false;
+	
+	}//public insertData(String tableName, String[] columnNames, String[] values)
+
 	public boolean updateData(SQLiteDatabase wdb, String tableName) {
 		/*----------------------------
 		* 1. Insert data
@@ -710,18 +784,27 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public boolean isInDB_long(SQLiteDatabase db, String tableName, long file_id)
 
-	public static boolean isInTable(Activity actv, SQLiteDatabase db, 
+	public boolean isInTable(Activity actv, String dbName, 
 											String tableName, String colName, String value) {
+		
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
 		
 		String sql = "SELECT * FROM " + tableName + " WHERE " + colName + " = '" + value + "'";
 		
-		Cursor c = db.rawQuery(sql, null);
+		Cursor c = rdb.rawQuery(sql, null);
 		
 		actv.startManagingCursor(c);
 		
-		return c.getCount() > 0 ? true : false;
+		int res = c.getCount();
 		
-	}//public static boolean isInTable
+		rdb.close();
+		
+		return res > 0 ? true : false;
+		
+	}//public boolean isInDB_genre(SQLiteDatabase db, String tableName, String genreName)
 
 	/****************************************
 	 *

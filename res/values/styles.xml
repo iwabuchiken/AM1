@@ -122,7 +122,20 @@
 			
 	        
 	    </style>
-	
-	    	    	
+		
+	    <!-- actv_register_group.xml -->
+	        <style 
+		        name="SpinnerCheckedIcon"
+		        parent="android:Widget.DropDownItem.Spinner"
+		        
+		        >
+		        <item
+		            name="android:checkMark"
+		            >
+		            @drawable/spinner_check
+		        </item>
+		        
+		    </style>
+	    
 	
 </resources>
