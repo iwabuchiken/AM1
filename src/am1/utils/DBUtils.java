@@ -59,6 +59,8 @@ public class DBUtils extends SQLiteOpenHelper{
 	
 	public final static String tableName_groups = "groups";
 	
+	public final static String tableName_activities = "activities";
+	
 	public static String currentTableName = null;
 	
 	public static String baseDirName = "";
@@ -92,6 +94,14 @@ public class DBUtils extends SQLiteOpenHelper{
 		"TEXT", "INTEGER", "INTEGER", "INTEGER"
 	};
 	
+	public static final String[] cols_activities = {
+		"name", "group_id", "created_at", "modified_at", "finished_at"
+	};
+	
+	public static final String[] types_activities = {
+		"TEXT", "INTEGER", "INTEGER", "INTEGER", "INTEGER"
+	};
+
 	/*****************************************************************
 	 * Constructor
 	 *****************************************************************/
@@ -240,6 +250,12 @@ public class DBUtils extends SQLiteOpenHelper{
 	 ****************************************/
 	public int tableExistsOrCreate(Activity actv, String dbName, 
 									String tableName, String[] columns, String[] types) {
+		/*----------------------------
+		 * 1. db setup
+		 * 2. Table exists?
+		 * 2-1. If exists, close db and return
+		 * 2-2. If not, create one and return
+			----------------------------*/
 		
 		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
 		
@@ -247,7 +263,9 @@ public class DBUtils extends SQLiteOpenHelper{
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 		
 		
-		// The table exists?
+		/*----------------------------
+		 * // The table exists?
+			----------------------------*/
 		Cursor cursor = rdb.rawQuery(
 									"SELECT * FROM sqlite_master WHERE tbl_name = '" + 
 									tableName + "'", null);
@@ -263,11 +281,18 @@ public class DBUtils extends SQLiteOpenHelper{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table exists: " + tableName);
 			
+			/*----------------------------
+			 * 2-1. If exists, close db and return
+				----------------------------*/
+			rdb.close();
 			
 			return 0;
 			
 		} else {//if (cursor.getCount() > 0)
 			
+			/*----------------------------
+			 * 2-2. If not, create one and return
+				----------------------------*/
 			rdb.close();
 			
 			SQLiteDatabase wdb = dbu.getWritableDatabase();
@@ -282,9 +307,13 @@ public class DBUtils extends SQLiteOpenHelper{
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Table created: " + tableName);
 				
+				wdb.close();
+				
 				return 1;
 				
 			}//if (res == true)
+			
+			wdb.close();
 			
 			return -1;
 			

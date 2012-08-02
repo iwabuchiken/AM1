@@ -57,20 +57,32 @@ public final class R {
         public static final int actv_register_group_tv_title=0x7f08000e;
         public static final int dlg_register_bt_cancel=0x7f080017;
         public static final int dlg_register_lv=0x7f080016;
-        public static final int main_bt_pause=0x7f08001a;
-        public static final int main_bt_start=0x7f080019;
-        public static final int main_bt_stop=0x7f08001b;
-        public static final int main_opt_menu_register=0x7f08001c;
-        public static final int main_tv_title=0x7f080018;
+        public static final int list_row_LL_root=0x7f08001d;
+        public static final int list_row_activity_item_LL_root=0x7f080018;
+        public static final int list_row_activity_item_tv_activity_name=0x7f080019;
+        public static final int list_row_activity_item_tv_created_at=0x7f08001b;
+        public static final int list_row_activity_item_tv_finished_at=0x7f08001c;
+        public static final int list_row_activity_item_tv_group=0x7f08001a;
+        public static final int list_row_timer_history_LL_2=0x7f08001f;
+        public static final int list_row_timer_history_tv_created_at=0x7f080021;
+        public static final int list_row_timer_history_tv_duration=0x7f080020;
+        public static final int list_row_timer_history_tv_message=0x7f08001e;
+        public static final int main_bt_pause=0x7f080024;
+        public static final int main_bt_start=0x7f080023;
+        public static final int main_bt_stop=0x7f080025;
+        public static final int main_opt_menu_register=0x7f080026;
+        public static final int main_tv_title=0x7f080022;
     }
     public static final class layout {
         public static final int actv_register_activity=0x7f030000;
         public static final int actv_register_genre=0x7f030001;
         public static final int actv_register_group=0x7f030002;
         public static final int dlg_register=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int spinner_dropdown_row=0x7f030005;
-        public static final int spinner_row=0x7f030006;
+        public static final int list_row_activity_item=0x7f030004;
+        public static final int list_row_timer_history=0x7f030005;
+        public static final int main=0x7f030006;
+        public static final int spinner_dropdown_row=0x7f030007;
+        public static final int spinner_row=0x7f030008;
     }
     public static final class menu {
         public static final int menu_main=0x7f070000;

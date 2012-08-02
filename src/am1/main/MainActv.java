@@ -1,15 +1,26 @@
 package am1.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import am1.utils.ActivityItemListAdapter;
+import am1.utils.DBUtils;
 import am1.utils.Methods;
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class MainActv extends Activity {
+public class MainActv extends ListActivity {
 
 	public static Vibrator vib;
 	
@@ -30,7 +41,91 @@ public class MainActv extends Activity {
 
 		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
 		
+//		set_list();
+		
 	}//public void onCreate(Bundle savedInstanceState)
+
+	private void set_list() {
+		/*----------------------------
+		 * 1. db setup
+		 * 2. Query
+		 * 3. Prepare => ActivityItem list
+		 * 4. Prepare => ActivityItemListAdapter
+		 * 5. Set adapter to list
+		 * 
+		 * 9. Close db
+			----------------------------*/
+		DBUtils dbu = new DBUtils(this, DBUtils.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		int i_res = dbu.tableExistsOrCreate(
+				this, 
+				DBUtils.dbName, 
+				DBUtils.tableName_activities, 
+				DBUtils.cols_activities, DBUtils.types_activities);
+
+		if (i_res == -1) {
+			
+			// debug
+			Toast.makeText(MainActv.this, "Create table => Error", 2000).show();
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Create table => Error");
+			
+			rdb.close();
+			
+			return;
+			
+		}//if (i_res = -1)
+		
+//		/*----------------------------
+//		 * 2. Query
+//			----------------------------*/
+////		String sql = "SELECT * FROM " + DBUtils.tableName_activities + "'";
+//		String sql = "SELECT * FROM " + DBUtils.tableName_activities;
+//		
+//		Cursor c = rdb.rawQuery(sql, null);
+//		
+//		c.moveToFirst();
+//
+//		// Log
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "c.getCount(): " + c.getCount());
+		
+		/*----------------------------
+		 * 3. Prepare => ActivityItem list
+			----------------------------*/
+		List<ActivityItem> aiList = Methods.getAIList_fromDB(this);
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "aiList.size(): " + aiList.size());
+		
+		/*----------------------------
+		 * 4. Prepare => ActivityItemListAdapter
+			----------------------------*/
+		ActivityItemListAdapter ailAdapter = new ActivityItemListAdapter(
+								this,
+								R.layout.main,
+								aiList
+				);
+		
+		/*----------------------------
+		 * 5. Set adapter to list
+			----------------------------*/
+		setListAdapter(ailAdapter);
+		
+		/*----------------------------
+		 * 9. Close db
+			----------------------------*/
+		rdb.close();
+		
+	}//private void set_list()
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,13 +175,62 @@ public class MainActv extends Activity {
 	protected void onResume() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onResume();
+		
+		set_list();
+		
 	}
 
 	@Override
 	protected void onStart() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onStart();
-	}
+		
+		set_list();
+		
+		// B4
+//		db_update();
+		
+	}//protected void onStart()
+
+	private void db_update() {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		// B4
+		DBUtils dbu = new DBUtils(this, DBUtils.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		String sql = "ALTER TABLE " + DBUtils.tableName_activities  + 
+							" ADD COLUMN " + "finished_at" + " INTEGER";
+		
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Column added: " + "finished_at");
+			
+			wdb.close();
+			
+			return;
+			
+		} catch (SQLException e) {
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			wdb.close();
+			
+			return;
+			
+		}//try
+		
+	}//private void db_update()
 
 	@Override
 	protected void onStop() {

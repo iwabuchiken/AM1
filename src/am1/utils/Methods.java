@@ -7,6 +7,7 @@ import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -21,6 +22,7 @@ import java.util.TimerTask;
 import am1.listeners.DialogButtonOnClickListener;
 import am1.listeners.DialogButtonOnTouchListener;
 import am1.listeners.DialogOnItemClickListener;
+import am1.main.ActivityItem;
 import am1.main.R;
 import android.app.Activity;
 import android.app.Dialog;
@@ -587,6 +589,20 @@ public class Methods {
 		 * 3. Return
 			----------------------------*/
 		return sb.toString();
+		
+	}//public static void  convert_millSeconds2digitsLabel()
+
+	public static String  convert_millSec2digitsLabel(long millSeconds) {
+		/*----------------------------
+		 * Steps
+		 * 1. Prepare variables
+		 * 2. Build a string
+		 * 3. Return
+			----------------------------*/
+		// Format
+		SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd H:mm:ss");
+		
+		return form.format(millSeconds);
 		
 	}//public static void  convert_millSeconds2digitsLabel()
 
@@ -1900,8 +1916,8 @@ public class Methods {
 		boolean res = dbu.insertData_activity(
 									actv, 
 									DBUtils.dbName, 
-									DBUtils.tableName_groups, 
-									DBUtils.cols_groups, values);
+									DBUtils.tableName_activities, 
+									DBUtils.cols_activities, values);
 		
 		if (res == true) {
 			
@@ -1926,5 +1942,158 @@ public class Methods {
 
 		}//if (res == true)
 	}//public static void registerActivity(Activity actv)
+
+	public static List<ActivityItem> getAIList_fromDB(Activity actv) {
+		/*----------------------------
+		 * 1. db setup
+		 * 1-1. Table exists?
+		 * 2. Cursor
+		 * 3. Build item objects
+		 * 
+		 * 9. Close db
+			----------------------------*/
+		/*----------------------------
+		 * 1. db setup
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		/*----------------------------
+		 * 1-1. Table exists?
+			----------------------------*/
+		boolean res = dbu.tableExists(rdb, DBUtils.tableName_activities);
+		
+		if (res == false) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + DBUtils.tableName_activities);
+			
+			return null;
+			
+		}//if (res == false)
+		
+		/*----------------------------
+		 * 2. Cursor
+			----------------------------*/
+		String sql = "SELECT * FROM " + DBUtils.tableName_activities;
+		
+		Cursor c = rdb.rawQuery(sql, null);
+		
+		actv.startManagingCursor(c);
+		
+		if (c.getCount() < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "c.getCount() < 1");
+			
+			return null;
+			
+		}//if (c.getCount() < 1)
+		
+		/*----------------------------
+		 * 3. Build item objects
+			----------------------------*/
+		List<ActivityItem> aiList = new ArrayList<ActivityItem>();
+		
+		c.moveToFirst();
+		
+		for (int i = 0; i < c.getCount(); i++) {
+			
+			ActivityItem ti = new ActivityItem(
+								c.getString(1),
+								c.getLong(2),
+								c.getLong(3), 
+								c.getLong(4)
+								);
+			
+			aiList.add(ti);
+			
+			c.moveToNext();
+			
+		}//for (int i = 0; i < c.getCount(); i++)
+		
+		/*----------------------------
+		 * 9. Close db
+			----------------------------*/
+		rdb.close();
+		
+		return aiList;
+	}//public static List<ActivityItem> getAIList_fromDB(Activity actv)
+
+
+	/****************************************
+	 *
+	 * 
+	 * <Caller> 1. <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 
+	 * 1.	null		=> The group doesn't exist in the table
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	public static String find_GroupName_by_GroupId(
+							Activity actv, String dbname, long group_id) {
+		/*----------------------------
+		 * 1. db setup
+		 * 2. Is in the table?
+		 * 3. Group name
+		 * 4. Close db
+		 * 
+		 * 5. Return
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/*----------------------------
+		 * 2. Is in the table?
+			----------------------------*/
+		boolean res = dbu.isInTable(
+										actv, DBUtils.dbName, 
+										DBUtils.tableName_groups, 
+										android.provider.BaseColumns._ID,
+										String.valueOf(group_id));
+
+		if (res == false) {
+			
+			// debug
+			Toast.makeText(actv, "Ç±ÇÃÉOÉãÅ[ÉvÇÕÅAÇ‹Çæìoò^Ç≥ÇÍÇƒÇ‹ÇπÇÒ", 2000).show();
+			
+			return null;
+			
+		}//if (res == false)
+		
+		/*----------------------------
+		 * 3. Group name
+			----------------------------*/
+		String sql = "SELECT * FROM " + 
+							DBUtils.tableName_groups + 
+							" WHERE " + android.provider.BaseColumns._ID + 
+							"='" + group_id + "'";
+		
+		Cursor c = rdb.rawQuery(sql, null);
+		
+		c.moveToFirst();
+		
+		String group_name_obtained = c.getString(1);
+		
+		/*----------------------------
+		 * 4. Close db
+			----------------------------*/
+		rdb.close();
+		
+		/*----------------------------
+		 * 5. Return
+			----------------------------*/
+		return group_name_obtained;
+		
+//		return 0;
+	}//public static String find_GroupName_by_GroupId
 
 }//public class Methods
