@@ -33,9 +33,9 @@ public final class R {
         public static final int spinner_check=0x7f020004;
     }
     public static final class id {
-        public static final int actv_register_activity_bt_pause=0x7f080006;
+        public static final int actv_register_activity_bt_cancel=0x7f080006;
+        public static final int actv_register_activity_bt_clear=0x7f080007;
         public static final int actv_register_activity_bt_register=0x7f080005;
-        public static final int actv_register_activity_bt_stop=0x7f080007;
         public static final int actv_register_activity_et_name=0x7f080002;
         public static final int actv_register_activity_sp_group=0x7f080004;
         public static final int actv_register_activity_tv_group=0x7f080003;

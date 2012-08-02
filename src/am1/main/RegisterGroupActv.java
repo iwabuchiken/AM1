@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class RegisterGroupActv extends Activity {
 
@@ -74,7 +75,20 @@ public class RegisterGroupActv extends Activity {
 		
 		String sql = "SELECT * FROM " + DBUtils.tableName_genres;
 		
-		Cursor c = rdb.rawQuery(sql, null);
+		Cursor c = null;
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			
+			// debug
+			Toast.makeText(this, "Query => Error", 2000).show();
+			
+			rdb.close();
+			
+			return;
+		}//try
 		
 		// Log
 		Log.d("RegisterGroupActv.java" + "["

@@ -44,6 +44,9 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			case actv_register_group_bt_cancel:
 			case actv_register_group_bt_register:
 
+			case actv_register_activity_bt_cancel:
+			case actv_register_activity_bt_register:
+				
 				v.setBackgroundColor(Color.GRAY);
 				
 				break;
@@ -58,6 +61,9 @@ public class ButtonOnTouchListener implements OnTouchListener {
 
 			case actv_register_group_bt_cancel:
 			case actv_register_group_bt_register:
+				
+			case actv_register_activity_bt_cancel:
+			case actv_register_activity_bt_register:
 				
 				v.setBackgroundColor(Color.WHITE);
 				

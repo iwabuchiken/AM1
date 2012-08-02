@@ -7,6 +7,7 @@ import am1.listeners.ButtonOnClickListener;
 import am1.listeners.ButtonOnTouchListener;
 import am1.utils.DBUtils;
 import am1.utils.Methods;
+
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -59,9 +60,10 @@ public class RegisterActvityActv extends Activity {
 		/*----------------------------
 		 * 1. Cancel
 			----------------------------*/
-//		Button bt_cancel = (Button) findViewById(R.id.actv_register_activity_bt_cancel);
 		Button bt_cancel = (Button) findViewById(R.id.actv_register_activity_bt_cancel);
-		
+//		Button bt_cancel = (Button) findViewById(R.id.actv_register_activity_bt_cancel);
+//		Button bt_cancel = (Button) findViewById(R.id.);
+//		
 		bt_cancel.setTag(Methods.ButtonTags.actv_register_activity_bt_cancel);
 		
 		bt_cancel.setOnTouchListener(new ButtonOnTouchListener(this));
