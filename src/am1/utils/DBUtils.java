@@ -647,6 +647,96 @@ public class DBUtils extends SQLiteOpenHelper{
 	
 	}//public insertData(String tableName, String[] columnNames, String[] values)
 
+
+	/****************************************
+	 *
+	 * 
+	 * <Caller> 1. <Desc> 1. <Params> 1.
+	 * 
+	 * <Return>
+	 *  1. false		=> The data already in the table, or, insertion failed
+	 *  2. true		=> The data inserted
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	public boolean insertData_activity(Activity actv, String dbName, 
+			String tableName, String[] columnNames, Object[] values) {
+		/*----------------------------
+		 * 0. Is in table?
+			----------------------------*/
+		boolean res = isInTable(actv, dbName, tableName, columnNames[0], (String) values[0]);
+		
+//		if (res == false) {
+		if (res == true) {
+			
+			// debug
+			Toast.makeText(actv, "‚±‚ÌƒAƒCƒeƒ€‚ÍA‚à‚¤“o˜^‚µ‚Ä‚ ‚è‚Ü‚·", 2000).show();
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "The item already in the table");
+			
+			return false;
+			
+		}//if (res == false)
+		
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+			//"name", "created_at", "modified_at"
+			
+			// Put values
+			val.put(columnNames[0], (String) values[0]);		// name
+			val.put(columnNames[1], (Long) values[1]);		// group_id
+			val.put(columnNames[2], (Long) values[2]);		// created_at
+			val.put(columnNames[3], (Long) values[3]);		// modified_at
+			
+			// Insert data
+			wdb.insert(tableName, null, val);
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Transaction => Ends");
+			
+			wdb.close();
+			
+			return true;
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Exception! => " + e.toString());
+			
+			wdb.close();
+			
+			return false;
+		}//try
+		
+		////debug
+		//return false;
+	
+	}//public insertData(String tableName, String[] columnNames, String[] values)
+
 	public boolean updateData(SQLiteDatabase wdb, String tableName) {
 		/*----------------------------
 		* 1. Insert data

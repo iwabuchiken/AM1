@@ -1723,9 +1723,73 @@ public class Methods {
 	}//private static long getGenreId_FromGenreName
 
 
+
 	/****************************************
 	 *
 	 * 
+	 * <Caller> 1. <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 
+	 * 1.	-1		=> The group doesn't exist in the table
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	private static long getGroupId_FromGroupName(Activity actv, String dbname,
+			String tablenameGroups, String group_name) {
+		/*----------------------------
+		 * 1. db setup
+		 * 2. Is in the table?
+		 * 3. Group id
+		 * 4. Close db
+		 * 
+		 * 5. Return
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/*----------------------------
+		 * 2. Is in the table?
+			----------------------------*/
+		boolean res = dbu.isInTable(
+										actv, DBUtils.dbName, 
+										DBUtils.tableName_groups, 
+										DBUtils.cols_groups[0], group_name);
+
+		if (res == false) {
+			
+			// debug
+			Toast.makeText(actv, "このグループは、まだ登録されてません", 2000).show();
+			
+			return -1;
+			
+		}//if (res == false)
+		
+		/*----------------------------
+		 * 3. Group id
+			----------------------------*/
+		String sql = "SELECT * FROM " + tablenameGroups + " WHERE name='" + group_name + "'";
+		
+		Cursor c = rdb.rawQuery(sql, null);
+		
+		c.moveToFirst();
+		
+		long group_id = c.getLong(0);
+		
+		
+		rdb.close();
+		
+		return group_id;
+		
+		
+//		return 0;
+	}//private static long getGroupId_FromGenreName
+
+	
+	/****************************************
+	 *
+	 * 
+
 	 * <Caller> 1. ButtonOnClickListener
 	 * <Desc> 1. <Params> 1.
 	 * 
@@ -1739,51 +1803,51 @@ public class Methods {
 		 * 1-1. Is empty?
 		 * 1-2. Get spinner item
 		 * 
-		 * 2. Get genre id from genre_name
+		 * 2. Get genre id from group_name
 		 * 3. db setup
 		 * 4. Insert data
 			----------------------------*/
-		EditText et = (EditText) actv.findViewById(R.id.actv_register_group_et_name);
+		EditText et = (EditText) actv.findViewById(R.id.actv_register_activity_et_name);
 		
-		String group_name = et.getText().toString();
+		String activity_name = et.getText().toString();
 		
 		/*----------------------------
 		 * 1-1. Is empty?
 			----------------------------*/
-		if (group_name.equals("")) {
+		if (activity_name.equals("")) {
 			
 			// debug
 			Toast.makeText(actv, "入力がありません", 2000).show();
 			
 			return;
 			
-		}//if (group_name.equals(""))
+		}//if (activity_name.equals(""))
 		
 		/*----------------------------
 		 * 1-2. Get spinner item
 			----------------------------*/
-		Spinner sp = (Spinner) actv.findViewById(R.id.actv_register_group_sp_group);
+		Spinner sp = (Spinner) actv.findViewById(R.id.actv_register_activity_sp_group);
 		
-		String genre_name = (String) sp.getSelectedItem();
+		String group_name = (String) sp.getSelectedItem();
 		
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "group_name: " + group_name + "/" + "genre_name: " + genre_name);
+				+ "]", "activity_name: " + activity_name + "/" + "group_name: " + group_name);
 		
 		/*----------------------------
-		 * 2. Get genre id from genre_name
+		 * 2. Get group id from group_name
 			----------------------------*/
-		long genre_id = Methods.getGenreId_FromGenreName(
+		long group_id = Methods.getGroupId_FromGroupName(
 										actv, 
 										DBUtils.dbName, 
-										DBUtils.tableName_genres,
-										genre_name);
+										DBUtils.tableName_groups,
+										group_name);
 		
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "genre_id: " + genre_id);
+				+ "]", "group_id: " + group_id);
 		
 		
 		/*----------------------------
@@ -1831,9 +1895,9 @@ public class Methods {
 		long created_at = Methods.getMillSeconds_now();
 		long modified_at = Methods.getMillSeconds_now();
 		
-		Object[] values = {group_name, genre_id, created_at, modified_at};
+		Object[] values = {activity_name, group_id, created_at, modified_at};
 		
-		boolean res = dbu.insertData_group(
+		boolean res = dbu.insertData_activity(
 									actv, 
 									DBUtils.dbName, 
 									DBUtils.tableName_groups, 
@@ -1844,10 +1908,10 @@ public class Methods {
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Data inserted: group_name=" + group_name);
+					+ "]", "Data inserted: activity_name=" + activity_name);
 			
 			// debug
-			Toast.makeText(actv, "データを登録しました：" + group_name, 2000).show();
+			Toast.makeText(actv, "データを登録しました：" + activity_name, 2000).show();
 			
 			return;
 			
@@ -1856,7 +1920,7 @@ public class Methods {
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Insert data => Failed: " + group_name);
+					+ "]", "Insert data => Failed: " + activity_name);
 			
 			return;
 
