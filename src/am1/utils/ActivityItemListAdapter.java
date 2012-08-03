@@ -101,10 +101,10 @@ public class ActivityItemListAdapter extends ArrayAdapter<ActivityItem> {
 //		tv_created_at.setText(Methods.convert_millSeconds2digitsLabel(ti.getCreated_at()));
 		tv_created_at.setText(Methods.convert_millSec2digitsLabel(ti.getCreated_at()));
 		
-		// Log
-		Log.d("ActivityItemListAdapter.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ti.getCreated_at(): " + ti.getCreated_at());
+//		// Log
+//		Log.d("ActivityItemListAdapter.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "ti.getCreated_at(): " + ti.getCreated_at());
 		
 		/*----------------------------
 		 * 3.3. finished_at
@@ -124,40 +124,15 @@ public class ActivityItemListAdapter extends ArrayAdapter<ActivityItem> {
 			
 		}//if (ti.getFinished_at() == null)
 		
-		// Log
-		Log.d("ActivityItemListAdapter.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ti.getFinished_at(): " + ti.getFinished_at());
+//		// Log
+//		Log.d("ActivityItemListAdapter.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "ti.getFinished_at(): " + ti.getFinished_at());
 		
 		tv_finished_at.setText(finished_time);
 		
-		/*----------------------------
-		 * 3.2. Duration
-			----------------------------*/
-
-//		// Log
-//		Log.d("ActivityItemListAdapter.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "ti.getDuration(): " + ti.getDuration());
-//		
-//		Log.d("ActivityItemListAdapter.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "convert: " + Methods.convert_millSeconds2digitsLabel(ti.getDuration()));
-		
-		
-		/*----------------------------
-		 * 3.3. Date
-			----------------------------*/
-//		// Log
-//		Log.d("ActivityItemListAdapter.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "ti.getDuration(): " + ti.getDuration());
-		
-
-//		return null;
 		return v;
 
-//		return super.getView(position, convertView, parent);
 	}//public View getView(int position, View convertView, ViewGroup parent)
 
 }

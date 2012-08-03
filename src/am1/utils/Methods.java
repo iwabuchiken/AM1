@@ -1,6 +1,7 @@
 package am1.utils;
 
 
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
@@ -23,6 +24,7 @@ import am1.listeners.DialogButtonOnClickListener;
 import am1.listeners.DialogButtonOnTouchListener;
 import am1.listeners.DialogOnItemClickListener;
 import am1.main.ActivityItem;
+import am1.main.MainActv;
 import am1.main.R;
 import android.app.Activity;
 import android.app.Dialog;
@@ -93,6 +95,11 @@ public class Methods {
 
 		// dlg_register.xml
 		dlg_register_bt_cancel,
+
+		// dlg_activity_list_menu.xml
+
+		// dlg_confirm_delete_activity.xml
+		dlg_confirm_delete_activity_bt_ok,
 		
 	}//public static enum DialogButtonTags
 	
@@ -134,7 +141,8 @@ public class Methods {
 		REC,
 	}
 
-	public static enum LongClickTags {
+//	public static enum ListLongClickTags {
+	public static enum ListItemTags {
 		// MainActivity.java
 		main_activity_list,
 		
@@ -154,6 +162,9 @@ public class Methods {
 	public static enum DialogListTags {
 		// dlg_register.xml
 		dlg_register_lv,
+		
+		// dlg_activity_list_menu.xml
+		dlg_activity_list_menu_lv,
 		
 	}//public static enum DialogListTags
 	
@@ -1800,12 +1811,12 @@ public class Methods {
 		
 //		return 0;
 	}//private static long getGroupId_FromGenreName
-
 	
-	/****************************************
-	 *
-	 * 
-
+		
+		/****************************************
+		 *
+		 * 
+	
 	 * <Caller> 1. ButtonOnClickListener
 	 * <Desc> 1. <Params> 1.
 	 * 
@@ -1928,6 +1939,12 @@ public class Methods {
 			
 			// debug
 			Toast.makeText(actv, "データを登録しました：" + activity_name, 2000).show();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Activity registered: " + activity_name);
+			
 			
 			return;
 			
@@ -2095,5 +2112,380 @@ public class Methods {
 		
 //		return 0;
 	}//public static String find_GroupName_by_GroupId
+
+	public static void dlg_activity_list(Activity actv, ActivityItem ai) {
+		/*----------------------------
+		 * 1. Prepare dialog
+		 * 2. Prepare => List
+		 * 3. Adapter
+		 * 4. Set listener => List
+			----------------------------*/
+		
+		Dialog dlg = dlg_template_cancel(
+				// Activity, layout
+				actv, R.layout.dlg_activity_list_menu,
+				// Title
+				R.string.dlg_activity_list_menu_title,
+				// Cancel button, DialogTags => Cancel
+				R.id.dlg_activity_list_btn_cancel, 
+				Methods.DialogButtonTags.dlg_generic_dismiss);
+		
+		/*----------------------------
+		 * 2. Prepare => List
+			----------------------------*/
+		List<String> itemList = new ArrayList<String>();
+		
+//		String[] items = {"削除"};
+		int[] items = {R.string.dlg_activity_list_menu_delete};
+		
+//		for (int i = 0; i < 10; i++) {
+//			for (String item : items) {
+		for (int item : items) {
+				
+			itemList.add(actv.getString(item));
+			
+		}
+//		}//for (int i = 0; i < 10; i++)
+//			for (String item : items) {
+//				
+//				itemList.add(item);
+//				
+//			}
+		
+		/*----------------------------
+		 * 3. Adapter
+			----------------------------*/
+		ArrayAdapter<String> adp = new ArrayAdapter<String>(
+				actv,
+				android.R.layout.simple_list_item_1,
+				itemList
+				);
+		
+		ListView lv = (ListView) dlg.findViewById(R.id.dlg_activity_list_lv);
+		
+		lv.setAdapter(adp);
+		
+		/*----------------------------
+		 * 4. Set listener => List
+			----------------------------*/
+		lv.setTag(Methods.DialogListTags.dlg_activity_list_menu_lv);
+		
+		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg, ai));
+		
+		dlg.show();
+		
+	}//public static void dlg_activity_list(Activity actv)
+
+	public static Dialog dlg_template_cancel(
+				// Activity, layout
+				Activity actv, int layoutId,
+				// Title
+				int titleStringId,
+				// Cancel button, DialogTags => Cancel
+				int cancelButtonId, Methods.DialogButtonTags cancelTag) {
+		/*----------------------------
+		* Steps
+		* 1. Set up
+		* 2. Add listeners => OnTouch
+		* 3. Add listeners => OnClick
+		----------------------------*/
+		
+		// 
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(layoutId);
+		
+		// Title
+		dlg.setTitle(titleStringId);
+		
+		/*----------------------------
+		* 2. Add listeners => OnTouch
+		----------------------------*/
+		//
+		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
+		
+		//
+		btn_cancel.setTag(cancelTag);
+		
+		//
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		
+		/*----------------------------
+		* 3. Add listeners => OnClick
+		----------------------------*/
+		//
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+		
+		//
+		//dlg.show();
+		
+		return dlg;
+	
+	}//public static Dialog dlg_template_okCancel()
+
+	public static Dialog dlg_template_okCancel_2_dialogues(
+						// Activity, layout, title
+						Activity actv, int layoutId, int titleStringId,
+						// Ok, cancel
+						int okButtonId, int cancelButtonId,
+						// Tags
+						DialogButtonTags dlgButtonTagOk, DialogButtonTags dlgButtonTagCancel,
+						// 1st dialog
+						Dialog dlg1) {
+		/*----------------------------
+		* Steps
+		* 1. Set up
+		* 2. Add listeners => OnTouch
+		* 3. Add listeners => OnClick
+		----------------------------*/
+		
+		// 
+		Dialog dlg2 = new Dialog(actv);
+		
+		//
+		dlg2.setContentView(layoutId);
+		
+		// Title
+		dlg2.setTitle(titleStringId);
+		
+		/*----------------------------
+		* 2. Add listeners => OnTouch
+		----------------------------*/
+		//
+		Button btn_ok = (Button) dlg2.findViewById(okButtonId);
+		Button btn_cancel = (Button) dlg2.findViewById(cancelButtonId);
+		
+		//
+		btn_ok.setTag(dlgButtonTagOk);
+		btn_cancel.setTag(dlgButtonTagCancel);
+		
+		//
+		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+		
+		/*----------------------------
+		* 3. Add listeners => OnClick
+		----------------------------*/
+		//
+		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2));
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2));
+		
+		//
+		//dlg.show();
+		
+		return dlg2;
+	
+	}//public static Dialog dlg_template_okCancel_2_dialogues()
+
+	
+	public static void dlg_confirm_delete_activity(Activity actv, Dialog dlg, ActivityItem ai) {
+		/*----------------------------
+		 * 1. Dialog prototype
+		 * 2. Set text
+		 * 2-2. "Ok" button
+		 * 3. Show dialog
+			----------------------------*/
+//		Dialog dlg2 = Methods.dlg_template_okCancel_2_dialogues(
+		Dialog dlg2 = Methods.dlg_template_cancel(
+											actv, R.layout.dlg_confirm_delete_activity, 
+											R.string.generic_tv_confirm,
+											R.id.dlg_confirm_delete_activity_btn_cancel,
+//											Methods.DialogButtonTags.dlg_generic_dismiss_second_dialog
+											Methods.DialogButtonTags.dlg_generic_dismiss
+											);
+		
+//		// Activity, layout
+//		Activity actv, int layoutId,
+//		// Title
+//		int titleStringId,
+//		// Cancel button, DialogTags => Cancel
+//		int cancelButtonId, Methods.DialogButtonTags cancelTag
+		
+		/*----------------------------
+		 * 2. Set text
+			----------------------------*/
+		TextView tv_activity_name = 
+					(TextView) dlg2.findViewById(
+							R.id.dlg_confirm_delete_activity_tv_activity_name);
+		
+		tv_activity_name.setText(ai.getName());
+		
+		/*----------------------------
+		 * 2-2. "Ok" button
+			----------------------------*/
+		Button bt_ok = (Button) dlg2.findViewById(R.id.dlg_confirm_delete_activity_btn_ok);
+		
+		bt_ok.setTag(Methods.DialogButtonTags.dlg_confirm_delete_activity_bt_ok);
+		
+		bt_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		
+		bt_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
+		
+		dlg2.show();
+	}
+
+	public static void deleteActivity(Activity actv, Dialog dlg, Dialog dlg2) {
+		/*----------------------------
+		 * 1. Get item name
+		 * 2. Delete item from db
+		 * 3. Delete item => from aiList in MainActivity
+		 * 4. Notifiy to adapter
+		 * 
+		 * 9. Dismiss dialogues
+		 * 9-2. If deletion unsuccessful
+		 * 10. Show message
+			----------------------------*/
+		TextView tv_item_name = 
+				(TextView) dlg2.findViewById(
+						R.id.dlg_confirm_delete_activity_tv_activity_name);
+		
+		String item_name = tv_item_name.getText().toString();
+		
+		/*----------------------------
+		 * 2. Delete item from db
+			----------------------------*/
+		boolean res = Methods.deleteItem_fromDB(
+											actv,
+											DBUtils.dbName, 
+											DBUtils.tableName_activities,
+											DBUtils.cols_activities[0],
+											item_name
+								);
+		if(res == true) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Item removed from db: " + item_name);
+			
+			
+			/*----------------------------
+			 * 3. Delete item => from aiList in MainActivity
+				----------------------------*/
+			int i;
+			boolean flag = false;
+			
+			for (i = 0; i < MainActv.aiList.size(); i++) {
+				
+				if (MainActv.aiList.get(i).getName() == item_name) {
+					
+					flag = true;
+					
+					break;
+					
+				}//if (MainActv.aiList.get(i).getName() == item_name);
+				
+			}//for (int i = 0; i < MainActv.aiList.size(); i++)
+
+			if (flag == true) {
+				
+				MainActv.aiList.remove(i);
+				
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Removed from aiList: " + item_name);
+				
+				
+			} else {//if (flag == true)
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Iten is not in aiList: " + item_name);
+				
+			}//if (flag == true)
+			
+			
+			
+//			for (ActivityItem ai : MainActv.aiList) {
+//				
+//				if (ai.getName() == item_name) {
+//					
+//					MainActv.aiList.remove(ai);
+//					
+//				}//if (ai.getName() == item_name)
+//				
+//			}//for (ActivityItem ai : MainActv.aiList)
+			
+			
+			/*----------------------------
+			 * 4. Notifiy to adapter
+				----------------------------*/
+			MainActv.ailAdapter.notifyDataSetChanged();
+				
+			/*----------------------------
+			 * 9. Dismiss dialogues
+				----------------------------*/
+			dlg.dismiss();
+			dlg2.dismiss();
+			
+			/*----------------------------
+			 * 10. Show message
+				----------------------------*/
+			// debug
+			Toast.makeText(actv, "活動を削除しました", 2000).show();
+		
+		} else {//if(res == true)
+			/*----------------------------
+			 * 9-2. If deletion unsuccessful
+				----------------------------*/
+			// debug
+			Toast.makeText(actv, "テーブルから削除できませんでした： " + item_name, 2000).show();
+			
+		}//if(res == true)
+		
+	}//public static void deleteActivity(Activity actv, Dialog dlg, Dialog dlg2)
+
+	/****************************************
+	 * 
+	 * <Caller> 1. deleteActivity(Activity actv, Dialog dlg, Dialog dlg2)
+	 * 
+	 * <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 1.
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
+	public static boolean deleteItem_fromDB(Activity actv, String dbName,
+			String tableName, String colName, String item_name) {
+		/*----------------------------
+		 * 1. db setup
+		 * 2. Is in table?
+		 * 3. If not, delete from the table
+			----------------------------*/
+		/*----------------------------
+		 * 1. db setup
+			----------------------------*/
+		DBUtils dbu = new DBUtils(actv, DBUtils.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		boolean res = dbu.isInTable(actv, dbName, tableName, colName, item_name);
+		
+		if (res == false) {
+			
+			// debug
+			Toast.makeText(actv, "この活動は、テーブルにありません： " + item_name, 2000).show();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "The item not in the table: " + item_name);
+			
+			return false;
+			
+		}//if (res == flase)
+		
+		/*----------------------------
+		 * 3. If not, delete from the table
+			----------------------------*/
+		res = dbu.deleteData_actvity(actv, wdb, item_name);
+		
+		return res;
+		
+	}//public static boolean deleteItem_fromDB
 
 }//public class Methods

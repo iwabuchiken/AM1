@@ -22,6 +22,9 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 	Activity actv;
 	Dialog dlg;
 	Dialog dlg2;
+	
+	ActivityItem ai;
+	
 	//
 	Vibrator vib;
 	
@@ -36,6 +39,19 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
 		
 	}//public DialogOnItemClickListener(Activity actv, Dialog dlg)
+
+	public DialogOnItemClickListener(Activity actv, Dialog dlg, ActivityItem ai) {
+		// 
+		this.actv = actv;
+		this.dlg = dlg;
+		
+		this.ai = ai;
+		
+		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+		
+		
+		
+	}//public DialogOnItemClickListener(Activity actv, Dialog dlg, ActivityItem ai)
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -90,6 +106,24 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			
 			
 			break;// case dlg_register_lv
+			
+		case dlg_activity_list_menu_lv://----------------------------------------------------
+			
+			item = (String) parent.getItemAtPosition(position);
+			
+			if (item.equals(actv.getString(R.string.dlg_activity_list_menu_delete))) {
+				
+				Methods.dlg_confirm_delete_activity(actv, dlg, ai);
+				
+//				// debug
+//				Toast.makeText(actv, "Delete", 2000).show();
+				
+			} else {//if (item.equals(object))
+				
+			}//if (item.equals(object))
+			
+			
+			break;
 			
 		}//switch (tag)
 		

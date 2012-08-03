@@ -805,6 +805,46 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public insertData(String tableName, String[] columnNames, String[] values)
 
+	public boolean deleteData_actvity(
+						Activity actv, SQLiteDatabase db, 
+						String activityName) {
+		/*----------------------------
+		 * Steps
+		 * 1. delete item
+			----------------------------*/
+		
+		String sql = 
+						"DELETE FROM " + DBUtils.tableName_activities + 
+						" WHERE " + DBUtils.cols_activities[0] + "='" + activityName + "'";
+		
+		try {
+			db.execSQL(sql);
+			
+			return true;
+			
+		} catch (SQLException e) {
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			return false;
+			
+		}//try
+		
+	}//public boolean deleteData(SQLiteDatabase db, String tableName, long file_id)
+
+	/****************************************
+	 *
+	 * 
+	 * <Caller> 1. Methods.deleteItem_fromDB()
+	 * 
+	 * <Desc> 1. <Params> 1.
+	 * 
+	 * <Return> 1.
+	 * 
+	 * <Steps> 1.
+	 ****************************************/
 	public boolean deleteData(Activity actv, SQLiteDatabase db, String tableName, long file_id) {
 		/*----------------------------
 		 * Steps
@@ -862,6 +902,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public boolean deleteData(SQLiteDatabase db, String tableName, long file_id)
 
+	
 	/****************************************
 	 *
 	 * 

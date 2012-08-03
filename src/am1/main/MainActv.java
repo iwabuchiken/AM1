@@ -3,6 +3,9 @@ package am1.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import am1.listeners.ListItemOnClickListener;
+import am1.listeners.ListOnItemLongClickListener;
+import am1.listeners.ListOnLongClickListener;
 import am1.utils.ActivityItemListAdapter;
 import am1.utils.DBUtils;
 import am1.utils.Methods;
@@ -18,11 +21,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActv extends ListActivity {
 
 	public static Vibrator vib;
+
+	public static List<ActivityItem> aiList;
+
+	public static ActivityItemListAdapter ailAdapter;
 	
 	/** Called when the activity is first created. */
     
@@ -99,7 +108,7 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 3. Prepare => ActivityItem list
 			----------------------------*/
-		List<ActivityItem> aiList = Methods.getAIList_fromDB(this);
+		aiList = Methods.getAIList_fromDB(this);
 		
 		// Log
 		Log.d("MainActv.java" + "["
@@ -109,7 +118,7 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 4. Prepare => ActivityItemListAdapter
 			----------------------------*/
-		ActivityItemListAdapter ailAdapter = new ActivityItemListAdapter(
+		ailAdapter = new ActivityItemListAdapter(
 								this,
 								R.layout.main,
 								aiList
@@ -187,10 +196,41 @@ public class MainActv extends ListActivity {
 		
 		set_list();
 		
+		set_listeners();
+		
 		// B4
 //		db_update();
 		
 	}//protected void onStart()
+
+	private void set_listeners() {
+		/*----------------------------
+		 * memo
+			----------------------------*/
+		ListView lv = this.getListView();
+		
+		lv.setTag(Methods.ListItemTags.main_activity_list);
+		
+//		lv.setOnLongClickListener(new ListOnLongClickListener(this));
+		lv.setOnItemLongClickListener(new ListOnItemLongClickListener(this));
+		
+//		lv.setOnClickListener(new ListItemOnClickListener(this));
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "listener set");
+		
+		
+	}//private void set_listeners()
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+
+		vib.vibrate(Methods.vibLength_click);
+		
+		super.onListItemClick(l, v, position, id);
+	}
 
 	private void db_update() {
 		/*----------------------------

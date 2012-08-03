@@ -38,6 +38,8 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 				switch (tag_name) {
 				
 				case dlg_generic_dismiss:
+				case dlg_confirm_delete_activity_bt_ok:
+					
 					//
 					v.setBackgroundColor(Color.GRAY);
 					
@@ -50,6 +52,7 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 			switch (tag_name) {
 
 			case dlg_generic_dismiss:
+			case dlg_confirm_delete_activity_bt_ok:
 				
 					v.setBackgroundColor(Color.WHITE);
 					

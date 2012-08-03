@@ -38,6 +38,13 @@
 		
 	<!-- actv_register_genre.xml -->
 		<string name="actv_register_genre_tv_title">登録：ジャンル</string>
+	
+	<!-- dlg_activity_list_menu.xml -->
+		<string name="dlg_activity_list_menu_title">活動</string>
+		<string name="dlg_activity_list_menu_delete">削除</string>
 		
+		
+	<!-- dlg_confirm_delete_activity.xml -->
+		<string name="dlg_confirm_delete_activity_tv_message">この活動を削除しますか？</string>
 		
 </resources>

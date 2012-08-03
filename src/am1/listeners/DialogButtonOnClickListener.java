@@ -64,17 +64,31 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		//
 		Methods.DialogButtonTags tag_name = (Methods.DialogButtonTags) v.getTag();
 
+		vib.vibrate(Methods.vibLength_click);
+		
 		//
 		switch (tag_name) {
 		
 		case dlg_generic_dismiss://------------------------------------------------
 			
-			vib.vibrate(Methods.vibLength_click);
+//			vib.vibrate(Methods.vibLength_click);
 			
 			dlg.dismiss();
 			
 			break;
+			
+		case dlg_generic_dismiss_second_dialog://---------------------------
+			
+			dlg2.dismiss();
+			
+			break;
 
+		case dlg_confirm_delete_activity_bt_ok://---------------------------
+			
+			Methods.deleteActivity(actv, dlg, dlg2);
+			
+			break;// case dlg_confirm_delete_activity_bt_ok
+			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
